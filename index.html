@@ -13,33 +13,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --b9:#042C53;--b8:#0C447C;--b7:#185FA5;--b5:#378ADD;--b2:#85B7EB;--b1:#B5D4F4;
+  --b9:#042C53;--b8:#0C447C;--b7:#185FA5;--b5:#378ADD;--b2:#85B7EB;
   --blk:#080c12;--dk:#0f1520;--dk2:#161e2e;--dk3:#1c2640;
   --brd:rgba(55,138,221,0.15);--brd2:rgba(55,138,221,0.25);
   --tx:#eef2ff;--mt:#7a94b8;--mt2:#3a5070;
   --grn:#1D9E75;--amb:#EF9F27;--red:#E24B4A;--pur:#7F77DD;
 }
-html,body{height:100%;margin:0;padding:0}
-body{background:var(--blk);font-family:'Inter',-apple-system,sans-serif;font-size:14px;color:var(--tx)}
-
-/* LAYOUT — works on desktop + mobile */
+html,body{margin:0;padding:0;background:var(--blk)}
+body{font-family:'Inter',-apple-system,sans-serif;font-size:14px;color:var(--tx)}
 .app{display:flex;flex-direction:column;min-height:100vh;max-width:600px;margin:0 auto;background:var(--blk);box-shadow:0 0 60px rgba(0,0,0,0.5)}
-.topbar{background:var(--dk);padding:12px 16px 0;border-bottom:0.5px solid var(--brd);flex-shrink:0;position:sticky;top:0;z-index:100}
-.content{flex:1;overflow-y:visible;-webkit-overflow-scrolling:touch;padding-bottom:40px}
-.content::-webkit-scrollbar{width:4px}
-.content::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:2px}
+.topbar{background:var(--dk);padding:12px 16px 0;border-bottom:0.5px solid var(--brd);position:sticky;top:0;z-index:100}
+.content{flex:1;padding-bottom:40px}
+
+/* LOGIN SCREEN */
+.login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 24px;background:var(--blk)}
+.login-logo{margin-bottom:32px;text-align:center}
+.login-title{font-size:20px;font-weight:500;color:var(--tx);margin-bottom:6px}
+.login-sub{font-size:13px;color:var(--mt);margin-bottom:40px;text-align:center;line-height:1.6}
+.btn-google{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;max-width:320px;background:#fff;border:none;border-radius:12px;padding:14px 20px;font-size:14px;font-weight:500;color:#1f2937;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.btn-google:hover{background:#f3f4f6;transform:translateY(-1px)}
+.btn-google svg{flex-shrink:0}
+.login-note{font-size:11px;color:var(--mt2);margin-top:20px;text-align:center;line-height:1.6;max-width:280px}
 
 /* BRAND */
-.brand{display:flex;align-items:center;gap:10px;padding:10px 0 10px}
+.brand{display:flex;align-items:center;gap:10px;padding:10px 0}
 .brand-text .name{font-size:13px;font-weight:500;color:var(--tx)}
 .brand-text .sub{font-size:9px;color:var(--mt);letter-spacing:0.5px}
-.tc-pill{margin-left:auto;background:var(--dk2);border:0.5px solid var(--brd2);border-radius:8px;padding:5px 10px;font-size:10px;color:var(--mt);cursor:pointer;white-space:nowrap}
+.tc-pill{background:var(--dk2);border:0.5px solid var(--brd2);border-radius:8px;padding:5px 10px;font-size:10px;color:var(--mt);cursor:pointer;white-space:nowrap}
 .tc-pill span{color:var(--amb);font-weight:500}
+.user-pill{margin-left:auto;display:flex;align-items:center;gap:8px}
+.user-avatar{width:28px;height:28px;border-radius:50%;border:1px solid var(--brd2)}
+.sign-out-btn{background:none;border:0.5px solid var(--brd2);color:var(--mt);border-radius:6px;padding:3px 8px;font-size:10px;cursor:pointer;font-family:inherit}
+.sign-out-btn:hover{color:var(--red);border-color:rgba(226,75,74,0.3)}
 
 /* MONTH NAV */
 .month-nav{display:flex;align-items:center;gap:6px;padding-bottom:10px}
-.mnbtn{background:none;border:0.5px solid var(--brd2);color:var(--mt);border-radius:6px;padding:4px 10px;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s}
-.mnbtn:active{background:var(--dk2)}
+.mnbtn{background:none;border:0.5px solid var(--brd2);color:var(--mt);border-radius:6px;padding:4px 10px;font-size:13px;cursor:pointer;font-family:inherit}
+.mnbtn:hover{background:var(--dk2);color:var(--tx)}
 .mnlabel{flex:1;text-align:center;font-size:12px;font-weight:500;color:var(--tx)}
 
 /* TABS */
@@ -47,12 +57,13 @@ body{background:var(--blk);font-family:'Inter',-apple-system,sans-serif;font-siz
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex-shrink:0;padding:9px 12px;font-size:10px;font-weight:500;color:var(--mt);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;letter-spacing:0.7px;text-transform:uppercase;white-space:nowrap}
 .tab.active{color:var(--b2);border-bottom-color:var(--b5)}
+.tab:hover{color:var(--tx)}
 
 /* SCREENS */
-.screen{display:none;padding:14px}
+.screen{display:none;padding:16px}
 .screen.active{display:block}
 
-/* HERO CARD */
+/* HERO */
 .hero{background:var(--b8);border-radius:14px;padding:18px 20px;margin-bottom:12px;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;top:-25px;right:-25px;width:100px;height:100px;border-radius:50%;background:rgba(55,138,221,0.12)}
 .hl{font-size:9px;font-weight:500;color:rgba(180,215,255,0.5);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
@@ -68,7 +79,6 @@ body{background:var(--blk);font-family:'Inter',-apple-system,sans-serif;font-siz
 .mv{font-size:15px;font-weight:500;color:var(--tx)}
 .mv.g{color:var(--grn)}.mv.r{color:var(--red)}.mv.a{color:var(--amb)}.mv.p{color:var(--pur)}.mv.b{color:var(--b2)}
 
-/* SECTION TITLE */
 .stitle{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:1.2px;margin:14px 0 8px}
 .stitle:first-child{margin-top:0}
 
@@ -88,7 +98,6 @@ body{background:var(--blk);font-family:'Inter',-apple-system,sans-serif;font-siz
 .bg{background:rgba(29,158,117,0.15);color:#34d399}
 .ba{background:rgba(239,159,39,0.12);color:#fbbf24}
 .bb{background:rgba(55,138,221,0.15);color:var(--b2)}
-.bp{background:rgba(127,119,221,0.15);color:#a5b4fc}
 
 /* ALERTS */
 .alert-r{background:rgba(226,75,74,0.08);border:0.5px solid rgba(226,75,74,0.18);border-radius:9px;padding:9px 12px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
@@ -104,16 +113,12 @@ body{background:var(--blk);font-family:'Inter',-apple-system,sans-serif;font-siz
 .fg{margin-bottom:11px}
 .fl{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;display:block}
 .fi{width:100%;background:var(--dk2);border:0.5px solid var(--brd);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--tx);font-family:inherit;outline:none}
-.fi:not(select){-webkit-appearance:none}
 .fi:focus{border-color:var(--b5)}
 .fi option{background:#1c2640}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
 .btn{width:100%;background:var(--b7);border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:500;color:#fff;cursor:pointer;font-family:inherit;margin-top:4px}
-.btn:active{background:var(--b5);transform:scale(0.98)}
+.btn:hover{background:var(--b5)}
 .btn-outline{background:var(--dk2);border:0.5px solid var(--brd2);color:var(--tx)}
-.btn-outline:active{background:var(--dk3)}
-.btn-red{background:rgba(226,75,74,0.15);border:0.5px solid rgba(226,75,74,0.3);color:#f87171}
 .msg{text-align:center;margin-top:7px;font-size:11px;color:var(--grn);min-height:15px}
 .msg.e{color:var(--red)}
 hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
@@ -126,10 +131,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
 /* ACCOUNTS */
 .acc-card{background:var(--dk2);border-radius:13px;padding:15px;border:0.5px solid var(--brd);margin-bottom:10px;position:relative;overflow:hidden}
 .acc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;border-radius:13px 13px 0 0}
-.acc-gtq::before{background:var(--b5)}
-.acc-usd::before{background:var(--grn)}
-.acc-cc::before{background:var(--red)}
-.acc-inv::before{background:var(--pur)}
+.acc-gtq::before{background:var(--b5)}.acc-usd::before{background:var(--grn)}.acc-cc::before{background:var(--red)}.acc-inv::before{background:var(--pur)}
 .acc-bal{font-size:24px;font-weight:300;letter-spacing:-0.5px;margin:10px 0 5px}
 .acc-bal.neg{color:var(--red)}
 .ltrack{background:rgba(255,255,255,0.07);border-radius:3px;height:4px;margin:8px 0 5px}
@@ -138,7 +140,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
 .lr strong{color:var(--tx)}
 .acc-actions{display:flex;gap:6px;margin-top:11px}
 .acc-btn{flex:1;background:rgba(55,138,221,0.08);border:0.5px solid var(--brd2);color:var(--b2);border-radius:7px;padding:7px 4px;font-size:11px;cursor:pointer;font-family:inherit;text-align:center}
-.acc-btn:active{background:rgba(55,138,221,0.18)}
+.acc-btn:hover{background:rgba(55,138,221,0.18)}
 .acc-btn.red{background:rgba(226,75,74,0.08);border-color:rgba(226,75,74,0.2);color:#f87171}
 .dbtn{background:rgba(226,75,74,0.1);border:0.5px solid rgba(226,75,74,0.2);color:#f87171;border-radius:5px;padding:3px 8px;font-size:10px;cursor:pointer;font-family:inherit}
 .paybtn{background:rgba(29,158,117,0.12);border:0.5px solid rgba(29,158,117,0.25);color:#34d399;border-radius:5px;padding:3px 9px;font-size:10px;cursor:pointer;font-family:inherit}
@@ -148,48 +150,64 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
 .fx-big{font-size:24px;font-weight:300;letter-spacing:-0.3px}
 .fx-loss{font-size:13px;font-weight:500;margin-top:5px}
 
-/* CASHFLOW BARS */
+/* CF */
 .cf-card{background:var(--dk2);border-radius:11px;padding:13px;border:0.5px solid var(--brd);margin-bottom:9px}
 .cf-bar{height:4px;border-radius:3px;background:rgba(255,255,255,0.06);margin-top:8px;overflow:hidden;display:flex}
 .cf-in{background:var(--grn)}.cf-out{background:var(--red)}
 
-/* UPLOAD ZONE */
+/* UPLOAD */
 .upload-zone{border:1px dashed var(--brd2);border-radius:11px;padding:22px;text-align:center;cursor:pointer;margin-bottom:10px}
-.upload-zone:active{border-color:var(--b5)}
+.upload-zone:hover{border-color:var(--b5)}
 .upload-zone input{display:none}
 
-/* DATA MGMT */
-.data-btn{display:flex;align-items:center;gap:10px;background:var(--dk2);border:0.5px solid var(--brd);border-radius:11px;padding:14px;margin-bottom:9px;cursor:pointer;width:100%}
-.data-btn:active{background:var(--dk3)}
-.data-btn-ico{font-size:20px;width:36px;text-align:center}
-.data-btn-info{flex:1;text-align:left}
-.data-btn-name{font-size:13px;color:var(--tx);font-weight:500}
-.data-btn-sub{font-size:10px;color:var(--mt);margin-top:2px}
+/* SYNC INDICATOR */
+.sync-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--mt);padding:3px 8px;border-radius:20px;background:var(--dk2);border:0.5px solid var(--brd)}
+.sync-dot{width:5px;height:5px;border-radius:50%;background:var(--grn)}
+.sync-dot.syncing{background:var(--amb);animation:pulse 1s infinite}
+.sync-dot.error{background:var(--red)}
 
 .empty{text-align:center;padding:24px;color:var(--mt);font-size:12px}
 .saved-badge{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(29,158,117,0.9);color:#fff;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:500;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:999}
 .saved-badge.show{opacity:1}
-/* Desktop styles */
-@media(min-width:600px){
-  body{background:#050810}
-  .app{border-left:0.5px solid var(--brd);border-right:0.5px solid var(--brd);min-height:100vh}
-  .topbar{padding-top:12px}
-  .g3{grid-template-columns:1fr 1fr 1fr}
-  .fr{grid-template-columns:1fr 1fr}
-  .screen{padding:20px}
-  .fi{font-size:14px}
-  .btn:hover{background:var(--b5);transition:background 0.2s}
-  .tab:hover{color:var(--tx)}
-}
+.loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px}
+.spinner{width:32px;height:32px;border:2px solid var(--brd2);border-top-color:var(--b5);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(min-width:600px){body{background:#050810}.app{border-left:0.5px solid var(--brd);border-right:0.5px solid var(--brd)}}
 </style>
 </head>
 <body>
 
-<div class="app">
-  <!-- TOPBAR -->
+<!-- LOGIN -->
+<div id="login-screen" class="login-screen" style="display:none">
+  <div class="login-logo">
+    <svg width="120" height="46" viewBox="0 0 128 48" fill="none">
+      <path d="M4,38 L4,10 L16,10 Q26,10 26,22 Q26,34 16,34 L4,34" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M34,10 L34,38 M34,24 L46,24 M46,10 L46,38" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M56,10 L56,38 L70,38 Q82,38 82,24 Q82,10 70,10 Z" stroke="#378ADD" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M92,10 L92,38 M92,10 L106,38 M120,10 L120,38 M92,38 L120,38" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <circle cx="106" cy="10" r="3.5" fill="#E24B4A"/>
+    </svg>
+  </div>
+  <div class="login-title">Powered Finances DQ</div>
+  <div class="login-sub">Tu sistema financiero personal.<br>Inicia sesión para continuar.</div>
+  <button class="btn-google" onclick="signInGoogle()">
+    <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.7 33.2 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-9 20-20 0-1.3-.2-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.7-2.8-11.3-7L6 33.5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.5l6.2 5.2C41 35.2 44 30 44 24c0-1.3-.2-2.7-.4-4z"/></svg>
+    Continuar con Google
+  </button>
+  <div class="login-note">Solo tú puedes acceder. Tus datos se guardan de forma segura en la nube de Google.</div>
+</div>
+
+<!-- LOADING -->
+<div id="loading-screen" class="loading-screen">
+  <div class="spinner"></div>
+  <div style="font-size:12px;color:var(--mt)">Cargando...</div>
+</div>
+
+<!-- APP -->
+<div class="app" id="main-app" style="display:none">
   <div class="topbar">
     <div class="brand">
-      <svg width="58" height="26" viewBox="0 0 128 48" fill="none">
+      <svg width="52" height="22" viewBox="0 0 128 48" fill="none">
         <path d="M4,38 L4,10 L16,10 Q26,10 26,22 Q26,34 16,34 L4,34" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
         <path d="M34,10 L34,38 M34,24 L46,24 M46,10 L46,38" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
         <path d="M56,10 L56,38 L70,38 Q82,38 82,24 Q82,10 70,10 Z" stroke="#378ADD" stroke-width="1.6" fill="none" stroke-linecap="round"/>
@@ -198,9 +216,13 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       </svg>
       <div class="brand-text">
         <div class="name">Powered Finances DQ</div>
-        <div class="sub">Personal Finance OS</div>
+        <div class="sub" id="sync-status">Sincronizando...</div>
       </div>
-      <div class="tc-pill" onclick="fetchTC()">TC: <span id="tc-val">...</span></div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <div class="tc-pill" onclick="fetchTC()">TC: <span id="tc-val">...</span></div>
+        <img id="user-avatar" class="user-avatar" src="" style="display:none">
+        <button class="sign-out-btn" onclick="signOut()">Salir</button>
+      </div>
     </div>
     <div class="month-nav">
       <button class="mnbtn" onclick="changeMonth(-1)">‹</button>
@@ -217,13 +239,10 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <div class="tab" onclick="showTab('commits',this)">Compromisos</div>
       <div class="tab" onclick="showTab('pending',this)">Pendientes</div>
       <div class="tab" onclick="showTab('add',this)">+ Nuevo</div>
-      <div class="tab" onclick="showTab('data',this)">Datos</div>
     </div>
   </div>
 
-  <!-- CONTENT -->
   <div class="content">
-
     <!-- DASHBOARD -->
     <div class="screen active" id="s-dash">
       <div class="hero">
@@ -258,12 +277,9 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <div class="fr">
           <div class="fg"><label class="fl">Tipo</label>
             <select class="fi" id="ac-type">
-              <option value="bank-gtq">Banco GTQ</option>
-              <option value="bank-usd">Banco USD</option>
-              <option value="cash-gtq">Efectivo GTQ</option>
-              <option value="cash-usd">Efectivo USD</option>
-              <option value="cc">Tarjeta crédito</option>
-              <option value="investment">Inversión</option>
+              <option value="bank-gtq">Banco GTQ</option><option value="bank-usd">Banco USD</option>
+              <option value="cash-gtq">Efectivo GTQ</option><option value="cash-usd">Efectivo USD</option>
+              <option value="cc">Tarjeta crédito</option><option value="investment">Inversión</option>
             </select>
           </div>
           <div class="fg"><label class="fl">Moneda</label>
@@ -272,7 +288,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         </div>
         <div class="fr">
           <div class="fg"><label class="fl">Saldo inicial</label><input class="fi" type="number" id="ac-balance" placeholder="0.00" step="0.01"></div>
-          <div class="fg"><label class="fl">Límite (tarjeta)</label><input class="fi" type="number" id="ac-limit" placeholder="0" step="100"></div>
+          <div class="fg"><label class="fl">Límite (tarjeta)</label><input class="fi" type="number" id="ac-limit" placeholder="0"></div>
         </div>
         <div class="fg"><label class="fl">Emoji</label><input class="fi" id="ac-icon" placeholder="🏦" maxlength="4" style="font-size:20px;text-align:center"></div>
         <button class="btn" onclick="addAccount()">Crear cuenta</button>
@@ -285,17 +301,17 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <input type="file" id="csv-upload" accept=".csv,.txt" onchange="handleCSV(event)">
         <div style="font-size:28px;margin-bottom:8px">📄</div>
         <div style="font-size:13px;color:var(--tx);font-weight:500;margin-bottom:4px">Toca para cargar CSV</div>
-        <div style="font-size:10px;color:var(--mt)">Columnas: fecha, descripción, monto<br>Exporta el estado de cuenta de tu banco</div>
+        <div style="font-size:10px;color:var(--mt)">Columnas: fecha, descripción, monto</div>
       </div>
       <div id="csv-preview"></div>
     </div>
 
-    <!-- DIVISAS FX -->
+    <!-- DIVISAS -->
     <div class="screen" id="s-fx">
       <div class="hero">
         <div class="hl">Tipo de cambio — Banco de Guatemala</div>
         <div class="ha"><sup>Q</sup><span id="fx-tc-val">7.7500</span></div>
-        <div class="hs" id="fx-tc-date">Toca el badge TC para actualizar</div>
+        <div class="hs" id="fx-tc-date">Toca TC para actualizar</div>
       </div>
       <div class="g2">
         <div class="mc"><div class="ml">Pérdida total mes</div><div class="mv r" id="fx-loss-m">Q0.00</div></div>
@@ -332,8 +348,8 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <div class="chart-wrap"><div class="ct">Ingresos vs egresos — 6 meses</div><canvas id="ch1" height="150"></canvas></div>
       <div class="chart-wrap"><div class="ct">Egresos por categoría</div><canvas id="ch2" height="160"></canvas></div>
       <div class="chart-wrap"><div class="ct">Flujo neto mensual</div><canvas id="ch3" height="130"></canvas></div>
-      <div class="chart-wrap"><div class="ct">Pérdida cambiaria acumulada</div><canvas id="ch4" height="120"></canvas></div>
-      <div class="chart-wrap"><div class="ct">Balance de cuentas (equiv. GTQ)</div><canvas id="ch5" height="140"></canvas></div>
+      <div class="chart-wrap"><div class="ct">Pérdida cambiaria</div><canvas id="ch4" height="120"></canvas></div>
+      <div class="chart-wrap"><div class="ct">Balance de cuentas</div><canvas id="ch5" height="140"></canvas></div>
     </div>
 
     <!-- CASHFLOW -->
@@ -362,7 +378,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         </div>
         <div class="fr">
           <div class="fg"><label class="fl">Día de pago</label><input class="fi" type="number" id="l-day" placeholder="5" min="1" max="31"></div>
-          <div class="fg"><label class="fl">Fecha vencimiento</label><input class="fi" type="date" id="l-due"></div>
+          <div class="fg"><label class="fl">Vencimiento</label><input class="fi" type="date" id="l-due"></div>
         </div>
         <div class="fr">
           <div class="fg"><label class="fl">Moneda</label><select class="fi" id="l-currency"><option value="GTQ">GTQ</option><option value="USD">USD</option></select></div>
@@ -426,153 +442,155 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <div class="fg"><label class="fl">Cuenta</label><select class="fi" id="a-acc"></select></div>
         <div class="fg"><label class="fl">Fecha</label><input class="fi" type="date" id="a-date"></div>
       </div>
-      <div class="fg"><label class="fl">Nota (opcional)</label><input class="fi" id="a-note" placeholder="Referencia, número de factura..."></div>
+      <div class="fg"><label class="fl">Nota (opcional)</label><input class="fi" id="a-note" placeholder="Referencia, factura..."></div>
       <button class="btn" onclick="addTx()">Registrar</button>
       <div class="msg" id="a-msg"></div>
       <hr>
       <div class="stitle">Movimientos del mes</div>
       <div id="tx-list"></div>
     </div>
+  </div>
+</div>
 
-    <!-- GESTIÓN DE DATOS -->
-    <div class="screen" id="s-data">
-      <div class="stitle" style="margin-top:0">Respaldo y restauración</div>
-      <button class="data-btn" onclick="exportData()">
-        <div class="data-btn-ico">📤</div>
-        <div class="data-btn-info">
-          <div class="data-btn-name">Exportar datos</div>
-          <div class="data-btn-sub">Descarga un archivo .json con toda tu información. Guárdalo en iCloud Drive.</div>
-        </div>
-        <div style="color:var(--mt);font-size:16px">›</div>
-      </button>
-      <div class="upload-zone" onclick="document.getElementById('json-upload').click()" style="margin-bottom:10px">
-        <input type="file" id="json-upload" accept=".json" onchange="importData(event)">
-        <div style="font-size:28px;margin-bottom:8px">📥</div>
-        <div style="font-size:13px;color:var(--tx);font-weight:500;margin-bottom:4px">Importar datos</div>
-        <div style="font-size:10px;color:var(--mt)">Carga tu archivo de respaldo .json</div>
-      </div>
-      <div id="data-msg" class="msg" style="margin-bottom:12px"></div>
-      <hr>
-      <div class="stitle">Información del almacenamiento</div>
-      <div class="mc" style="margin-bottom:8px">
-        <div class="ml">Dónde vive tu data</div>
-        <div style="font-size:12px;color:var(--tx);margin-top:4px;line-height:1.6">localStorage de tu navegador en este dispositivo. Permanente hasta que limpies Safari.</div>
-      </div>
-      <div class="g2">
-        <div class="mc"><div class="ml">Transacciones</div><div class="mv b" id="stat-tx">0</div></div>
-        <div class="mc"><div class="ml">Cuentas</div><div class="mv b" id="stat-acc">0</div></div>
-      </div>
-      <div class="g3">
-        <div class="mc"><div class="ml">Préstamos</div><div class="mv b" id="stat-loans">0</div></div>
-        <div class="mc"><div class="ml">Compromisos</div><div class="mv b" id="stat-commits">0</div></div>
-        <div class="mc"><div class="ml">Ops FX</div><div class="mv b" id="stat-fx">0</div></div>
-      </div>
-      <hr>
-      <div class="stitle">Zona peligrosa</div>
-      <button class="btn btn-red" onclick="clearAllData()">Borrar todos los datos</button>
-    </div>
+<div class="saved-badge" id="saved-badge">Guardado en la nube ✓</div>
 
-  </div><!-- end content -->
-</div><!-- end app -->
+<!-- FIREBASE SDK -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, onSnapshot, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
-<div class="saved-badge" id="saved-badge">Guardado ✓</div>
+const firebaseConfig = {
+  apiKey: "AIzaSyBkSR1N0d2ofsULI6P2zIWtyknkehkceG4",
+  authDomain: "powered-finances-dq.firebaseapp.com",
+  projectId: "powered-finances-dq",
+  storageBucket: "powered-finances-dq.firebasestorage.app",
+  messagingSenderId: "636684883878",
+  appId: "1:636684883878:web:76fd8684cc1b95d1a1e167"
+};
 
-<script>
-// ─── CONSTANTS ───────────────────────────────────────────────
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ─── STATE ────────────────────────────────────────────────────
+let currentUser = null;
+let cm = new Date().getMonth()+1;
+let cy = new Date().getFullYear();
+let TC = 7.75;
+let nid = Date.now();
+let accounts=[], loans=[], commits=[], allTx=[], fxOps=[];
+let charts={};
+let unsubscribers=[];
+
+// ─── CONSTANTS ────────────────────────────────────────────────
 const MONTHS=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MS=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const CI={general:'💼',food:'🍔',transport:'🚗',entertainment:'🎬',health:'❤️',clothing:'👔',tithe:'⛪',loan:'🏦',fx:'💱',cc:'💳',utilities:'💡',education:'📚'};
 const CN={general:'General',food:'Alimentación',transport:'Transporte',entertainment:'Entretenimiento',health:'Salud',clothing:'Ropa',tithe:'Diezmo',loan:'Préstamo',fx:'Divisas',cc:'Tarjeta',utilities:'Servicios',education:'Educación'};
 const CC_COLORS={general:'#7a94b8',food:'#EF9F27',transport:'#378ADD',entertainment:'#7F77DD',health:'#E24B4A',clothing:'#1D9E75',tithe:'#85B7EB',loan:'#fbbf24',fx:'#34d399',cc:'#f87171',utilities:'#60a5fa',education:'#a78bfa'};
-const ACC_TYPE_LABEL={'bank-gtq':'Cuenta bancaria GTQ','bank-usd':'Cuenta bancaria USD','cash-gtq':'Efectivo GTQ','cash-usd':'Efectivo USD','cc':'Tarjeta de crédito','investment':'Inversión'};
+const ACC_TYPE_LABEL={'bank-gtq':'Banco GTQ','bank-usd':'Banco USD','cash-gtq':'Efectivo GTQ','cash-usd':'Efectivo USD','cc':'Tarjeta de crédito','investment':'Inversión'};
 
-// ─── STATE ────────────────────────────────────────────────────
-let cm, cy, TC=7.75, nid=1000;
-let accounts=[], loans=[], commits=[], allTx=[], fxOps=[];
-let charts={};
+// ─── AUTH ─────────────────────────────────────────────────────
+window.signInGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  } catch(e) { console.error(e); alert('Error al iniciar sesión: '+e.message); }
+};
 
-// ─── LOCALSTORAGE ─────────────────────────────────────────────
-function saveData(){
-  const data={accounts,loans,commits,allTx,fxOps,TC,cm,cy,nid,v:1};
-  try{localStorage.setItem('pfdq_data',JSON.stringify(data));showSavedBadge();}catch(e){console.warn('Save error',e)}
-}
-function loadData(){
-  try{
-    const raw=localStorage.getItem('pfdq_data');
-    if(raw){
-      const d=JSON.parse(raw);
-      accounts=d.accounts||[];loans=d.loans||[];commits=d.commits||[];
-      allTx=d.allTx||[];fxOps=d.fxOps||[];
-      TC=d.TC||7.75;nid=d.nid||1000;
-      cm=d.cm||(new Date().getMonth()+1);cy=d.cy||new Date().getFullYear();
-      return true;
-    }
-  }catch(e){console.warn('Load error',e)}
-  return false;
-}
-function showSavedBadge(){
-  const b=document.getElementById('saved-badge');
-  b.classList.add('show');setTimeout(()=>b.classList.remove('show'),1500);
-}
-function exportData(){
-  const data={accounts,loans,commits,allTx,fxOps,TC,cm,cy,nid,exportedAt:new Date().toISOString(),v:1};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download='pfdq-backup-'+new Date().toISOString().slice(0,10)+'.json';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-  showMsg('data-msg','✓ Datos exportados correctamente','');
-}
-function importData(e){
-  const file=e.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    try{
-      const d=JSON.parse(ev.target.result);
-      if(!d.allTx&&!d.accounts){showMsg('data-msg','Archivo inválido','e');return;}
-      accounts=d.accounts||[];loans=d.loans||[];commits=d.commits||[];
-      allTx=d.allTx||[];fxOps=d.fxOps||[];TC=d.TC||7.75;nid=d.nid||1000;
-      cm=d.cm||(new Date().getMonth()+1);cy=d.cy||new Date().getFullYear();
-      saveData();renderAll();
-      showMsg('data-msg','✓ '+allTx.length+' transacciones importadas','');
-    }catch(err){showMsg('data-msg','Error al leer el archivo','e');}
-  };
-  reader.readAsText(file);
-}
-function clearAllData(){
-  if(confirm('¿Seguro? Se borrarán TODOS tus datos permanentemente.')){
-    localStorage.removeItem('pfdq_data');
-    accounts=[];loans=[];commits=[];allTx=[];fxOps=[];
-    initDefaultData();saveData();renderAll();
-    showMsg('data-msg','Datos borrados. Se cargaron datos de ejemplo.','');
+window.signOut = async () => {
+  if(confirm('¿Cerrar sesión?')) {
+    unsubscribers.forEach(u=>u());
+    await fbSignOut(auth);
   }
+};
+
+onAuthStateChanged(auth, async (user) => {
+  if(user) {
+    currentUser = user;
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('loading-screen').style.display='flex';
+    document.getElementById('main-app').style.display='none';
+    const av = document.getElementById('user-avatar');
+    if(user.photoURL){ av.src=user.photoURL; av.style.display='block'; }
+    await loadAllData();
+    document.getElementById('loading-screen').style.display='none';
+    document.getElementById('main-app').style.display='flex';
+    document.getElementById('month-label').textContent=MONTHS[cm-1]+' '+cy;
+    document.getElementById('a-date').value=new Date().toISOString().slice(0,10);
+    document.getElementById('sync-status').textContent='Conectado · '+user.displayName;
+    renderAll();
+    fetchTC();
+  } else {
+    currentUser = null;
+    document.getElementById('loading-screen').style.display='none';
+    document.getElementById('login-screen').style.display='flex';
+    document.getElementById('main-app').style.display='none';
+  }
+});
+
+// ─── FIRESTORE HELPERS ────────────────────────────────────────
+function userCol(colName) {
+  return collection(db, 'users', currentUser.uid, colName);
+}
+function userDoc(colName, docId) {
+  return doc(db, 'users', currentUser.uid, colName, String(docId));
+}
+
+async function saveDoc(colName, data) {
+  try {
+    await setDoc(userDoc(colName, data.id), data);
+    showSavedBadge();
+  } catch(e) { console.error('Save error:', e); }
+}
+
+async function deleteDocument(colName, id) {
+  try { await deleteDoc(userDoc(colName, String(id))); } 
+  catch(e) { console.error('Delete error:', e); }
+}
+
+async function loadAllData() {
+  try {
+    const [accSnap, loanSnap, commitSnap, txSnap, fxSnap, settingsSnap] = await Promise.all([
+      getDocs(userCol('accounts')),
+      getDocs(userCol('loans')),
+      getDocs(userCol('commits')),
+      getDocs(userCol('transactions')),
+      getDocs(userCol('fxOps')),
+      getDoc(userDoc('settings','main'))
+    ]);
+    accounts = accSnap.docs.map(d=>d.data());
+    loans = loanSnap.docs.map(d=>d.data());
+    commits = commitSnap.docs.map(d=>d.data());
+    allTx = txSnap.docs.map(d=>d.data());
+    fxOps = fxSnap.docs.map(d=>d.data());
+    if(settingsSnap.exists()) {
+      const s = settingsSnap.data();
+      cm = s.cm || cm; cy = s.cy || cy; TC = s.TC || TC;
+    }
+  } catch(e) { console.error('Load error:', e); }
+}
+
+async function saveSettings() {
+  try { await setDoc(userDoc('settings','main'), {cm,cy,TC}); } 
+  catch(e) { console.error(e); }
 }
 
 // ─── TC BANGUAT ───────────────────────────────────────────────
-async function fetchTC(){
+window.fetchTC = async () => {
   document.getElementById('tc-val').textContent='...';
-  // Intentar múltiples proxies CORS para el API de Banguat
-  const proxies=[
-    'https://api.allorigins.win/raw?url='+encodeURIComponent('https://banguat.gob.gt/api/v1/variables/tipo_cambio_referencia_venta'),
-    'https://corsproxy.io/?'+encodeURIComponent('https://www.banguat.gob.gt/tipo_cambio/default.aspx?dato=1'),
-  ];
-  let fetched=false;
-  for(const url of proxies){
-    try{
-      const r=await fetch(url,{signal:AbortSignal.timeout(4000)});
-      if(r.ok){
-        const text=await r.text();
-        const match=text.match(/(\d+\.\d{4,})/);
-        if(match){TC=parseFloat(match[1]);fetched=true;break;}
-      }
-    }catch(e){}
-  }
+  try {
+    const r = await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://banguat.gob.gt/api/v1/variables/tipo_cambio_referencia_venta'), {signal:AbortSignal.timeout(5000)});
+    if(r.ok){ const t=await r.text(); const m=t.match(/(\d+\.\d{4,})/); if(m) TC=parseFloat(m[1]); }
+  } catch(e) {}
   document.getElementById('tc-val').textContent='Q'+TC.toFixed(4);
   document.getElementById('fx-tc-val').textContent=TC.toFixed(4);
   document.getElementById('fx-tc-ref').value=TC.toFixed(4);
-  document.getElementById('fx-tc-date').textContent='Banco de Guatemala · '+new Date().toLocaleDateString('es-GT')+(fetched?' (en vivo)':' (manual — toca para actualizar)');
-  saveData();renderAll();
-}
+  document.getElementById('fx-tc-date').textContent='Banco de Guatemala · '+new Date().toLocaleDateString('es-GT');
+  saveSettings();
+  renderAll();
+};
 
 // ─── HELPERS ─────────────────────────────────────────────────
 function fmt(n,cur){const s=cur==='USD'?'$':'Q';return s+parseFloat(Math.abs(n)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2})}
@@ -594,6 +612,8 @@ function getUnpaid(m,y){return commits.filter(c=>!isPaid(c,m,y))}
 function getFXLoss(m,y){return fxOps.filter(f=>f.month===m&&f.year===y).reduce((s,f)=>s+(f.loss||0),0)}
 function daysUntil(ds){if(!ds)return 9999;return Math.ceil((new Date(ds)-new Date())/864e5)}
 function showMsg(id,text,type){const el=document.getElementById(id);if(!el)return;el.className='msg'+(type==='e'?' e':'');el.textContent=text;setTimeout(()=>el.textContent='',2500)}
+function showSavedBadge(){const b=document.getElementById('saved-badge');b.classList.add('show');setTimeout(()=>b.classList.remove('show'),1800)}
+function newId(){return Date.now()+'_'+Math.random().toString(36).slice(2,7)}
 
 // ─── RENDER DASHBOARD ─────────────────────────────────────────
 function renderDash(){
@@ -602,9 +622,9 @@ function renderDash(){
   const lp=getLoanTotal(),cp=getCommitTotal(),fxl=getFXLoss(m,y);
   const net=inc-exp-lp-cp-fxl;
   const usdNet=getUSDNet(m,y);
-  const elNet=document.getElementById('d-net');
-  elNet.innerHTML='<sup>Q</sup>'+Math.abs(Math.round(net)).toLocaleString('es-GT');
-  elNet.style.color=net>=0?'#fff':'#f87171';
+  const el=document.getElementById('d-net');
+  el.innerHTML='<sup>Q</sup>'+Math.abs(Math.round(net)).toLocaleString('es-GT');
+  el.style.color=net>=0?'#fff':'#f87171';
   document.getElementById('d-sub').textContent=net>=0?'Flujo positivo este mes':'Flujo negativo — revisar gastos';
   document.getElementById('d-inc').textContent=fmtQ(inc);
   document.getElementById('d-exp').textContent=fmtQ(exp);
@@ -612,8 +632,6 @@ function renderDash(){
   document.getElementById('d-lp').textContent=fmtQ(lp)+'/mes';
   document.getElementById('d-cp').textContent=fmtQ(cp)+'/mes';
   document.getElementById('d-fx').textContent=fmtQ(fxl);
-
-  // Account summary
   const totalGTQ=accounts.filter(a=>a.currency==='GTQ').reduce((s,a)=>s+a.balance,0);
   const totalUSD=accounts.filter(a=>a.currency==='USD').reduce((s,a)=>s+a.balance,0);
   document.getElementById('d-accsummary').innerHTML=`<div class="g3" style="margin-bottom:0">
@@ -621,18 +639,14 @@ function renderDash(){
     <div class="mc"><div class="ml">Total USD</div><div class="mv ${totalUSD>=0?'b':'r'}">$${totalUSD.toFixed(0)}</div></div>
     <div class="mc"><div class="ml">Equiv. total</div><div class="mv g">${fmtQ(totalGTQ+totalUSD*TC)}</div></div>
   </div>`;
-
-  // Alerts
   const unpaid=getUnpaid(m,y);
   let ah='';
-  if(unpaid.length>0) ah+=`<div class="alert-r"><div class="dot-r"></div><div class="atext">${unpaid.length} compromiso(s) pendiente(s): ${unpaid.map(c=>c.name).join(', ')}</div></div>`;
+  if(unpaid.length>0) ah+=`<div class="alert-r"><div class="dot-r"></div><div class="atext">${unpaid.length} compromisos pendientes: ${unpaid.map(c=>c.name).join(', ')}</div></div>`;
   loans.filter(l=>daysUntil(l.due)<=30&&daysUntil(l.due)>0).forEach(l=>{ah+=`<div class="alert-a"><div class="dot-a"></div><div class="atext-a">${l.icon||'🏦'} ${l.name} vence en ${daysUntil(l.due)} días</div></div>`;});
   if(fxl>500) ah+=`<div class="alert-a"><div class="dot-a"></div><div class="atext-a">Pérdida cambiaria este mes: Q${fxl.toFixed(2)}</div></div>`;
-  if(net<0) ah+=`<div class="alert-r"><div class="dot-r"></div><div class="atext">Flujo negativo este mes. Considera reducir egresos.</div></div>`;
+  if(net<0) ah+=`<div class="alert-r"><div class="dot-r"></div><div class="atext">Flujo negativo. Considera reducir egresos.</div></div>`;
   if(!ah) ah='<div class="alert-g">Sin alertas activas este mes</div>';
   document.getElementById('d-alerts').innerHTML=ah;
-
-  // Recent
   const txs=getTx(m,y).slice(-6).reverse();
   document.getElementById('d-recent').innerHTML=txs.map(t=>`<div class="item">
     <div class="iico" style="background:${t.type==='income'?'rgba(29,158,117,0.15)':'rgba(226,75,74,0.1)'}">${CI[t.cat]||'💳'}</div>
@@ -641,14 +655,12 @@ function renderDash(){
   </div>`).join('')||'<div class="empty">Sin movimientos este mes</div>';
 }
 
-// ─── RENDER ACCOUNTS ──────────────────────────────────────────
+// ─── ACCOUNTS ────────────────────────────────────────────────
 function renderAccounts(){
-  // Populate selects
   const sel1=document.getElementById('cc-target-acc');
   const sel2=document.getElementById('a-acc');
   sel1.innerHTML=accounts.map(a=>`<option value="${a.id}">${a.icon||'🏦'} ${a.name}</option>`).join('');
-  sel2.innerHTML='<option value="">Sin cuenta específica</option>'+accounts.map(a=>`<option value="${a.id}">${a.icon||'🏦'} ${a.name}</option>`).join('');
-
+  sel2.innerHTML='<option value="">Sin cuenta</option>'+accounts.map(a=>`<option value="${a.id}">${a.icon||'🏦'} ${a.name}</option>`).join('');
   const el=document.getElementById('acc-list');
   if(!accounts.length){el.innerHTML='<div class="empty">Sin cuentas registradas</div>';return;}
   el.innerHTML=accounts.map(a=>{
@@ -657,49 +669,53 @@ function renderAccounts(){
     const usage=isCC&&a.limit>0?Math.abs(a.balance)/a.limit*100:0;
     return `<div class="acc-card ${cls}">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div>
-          <div style="font-size:20px;margin-bottom:3px">${a.icon||'🏦'}</div>
-          <div style="font-size:13px;font-weight:500;color:var(--tx)">${a.name}</div>
-          <div style="font-size:10px;color:var(--mt);margin-top:1px">${ACC_TYPE_LABEL[a.type]||a.type}</div>
-        </div>
-        <button class="dbtn" onclick="delAccount(${a.id})">eliminar</button>
+        <div><div style="font-size:20px;margin-bottom:3px">${a.icon||'🏦'}</div>
+        <div style="font-size:13px;font-weight:500;color:var(--tx)">${a.name}</div>
+        <div style="font-size:10px;color:var(--mt)">${ACC_TYPE_LABEL[a.type]||a.type}</div></div>
+        <button class="dbtn" onclick="delAccount('${a.id}')">eliminar</button>
       </div>
       <div class="acc-bal ${a.balance<0?'neg':''}">${fmt(a.balance,a.currency)}</div>
       ${isCC&&a.limit>0?`<div class="ltrack"><div class="lfill" style="width:${Math.min(100,usage).toFixed(0)}%;background:${usage>85?'#E24B4A':usage>60?'#EF9F27':'#378ADD'}"></div></div>
       <div class="lr"><span>Usado: <strong>${fmt(Math.abs(a.balance),a.currency)}</strong></span><span>Límite: <strong>${fmt(a.limit,a.currency)}</strong></span></div>`:''}
       <div class="acc-actions">
-        <div class="acc-btn" onclick="adjustAcc(${a.id},1)">+ Depositar</div>
-        <div class="acc-btn red" onclick="adjustAcc(${a.id},-1)">− Retirar</div>
+        <div class="acc-btn" onclick="adjustAcc('${a.id}',1)">+ Depositar</div>
+        <div class="acc-btn red" onclick="adjustAcc('${a.id}',-1)">− Retirar</div>
       </div>
     </div>`;
   }).join('');
 }
-function adjustAcc(id,dir){
+
+window.adjustAcc = async (id,dir) => {
   const a=accounts.find(a=>a.id===id);if(!a)return;
-  const label=dir>0?'Monto a depositar en '+a.name+':':'Monto a retirar de '+a.name+':';
-  const val=parseFloat(prompt(label)||'0');
+  const val=parseFloat(prompt((dir>0?'Monto a depositar en ':'Monto a retirar de ')+a.name+':')||'0');
   if(!val||isNaN(val))return;
   a.balance=parseFloat((a.balance+dir*val).toFixed(2));
-  saveData();renderAll();
-}
-function addAccount(){
+  await saveDoc('accounts',a);renderAll();
+};
+
+window.addAccount = async () => {
   const name=document.getElementById('ac-name').value.trim();
   const type=document.getElementById('ac-type').value;
   const currency=document.getElementById('ac-currency').value;
   const balance=parseFloat(document.getElementById('ac-balance').value)||0;
   const limit=parseFloat(document.getElementById('ac-limit').value)||0;
   const icon=document.getElementById('ac-icon').value.trim()||'🏦';
-  if(!name){showMsg('ac-msg','Escribe el nombre de la cuenta','e');return;}
-  accounts.push({id:nid++,name,icon,type,currency,balance,limit});
+  if(!name){showMsg('ac-msg','Escribe el nombre','e');return;}
+  const acc={id:newId(),name,icon,type,currency,balance,limit};
+  accounts.push(acc);
+  await saveDoc('accounts',acc);
   ['ac-name','ac-balance','ac-limit','ac-icon'].forEach(id=>document.getElementById(id).value='');
-  saveData();renderAll();showMsg('ac-msg','✓ Cuenta creada','');
-}
-function delAccount(id){
-  if(confirm('¿Eliminar esta cuenta?')){accounts=accounts.filter(a=>a.id!==id);saveData();renderAll();}
-}
+  renderAll();showMsg('ac-msg','✓ Cuenta creada','');
+};
 
-// ─── CSV IMPORT ───────────────────────────────────────────────
-function handleCSV(e){
+window.delAccount = async (id) => {
+  if(!confirm('¿Eliminar esta cuenta?'))return;
+  accounts=accounts.filter(a=>a.id!==id);
+  await deleteDocument('accounts',id);renderAll();
+};
+
+// ─── CSV ──────────────────────────────────────────────────────
+window.handleCSV = (e) => {
   const file=e.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=ev=>{
@@ -708,95 +724,81 @@ function handleCSV(e){
     for(let i=1;i<lines.length;i++){
       const cols=lines[i].split(/[,;]/).map(c=>c.trim().replace(/^"|"$/g,''));
       if(cols.length<3)continue;
-      const dateStr=cols[0],desc=cols[1];
       const amtStr=(cols[2]||'').replace(/[^0-9.\-]/g,'');
       const amt=parseFloat(amtStr);
-      if(!desc||isNaN(amt)||amt===0)continue;
-      const d=new Date(dateStr);
-      const month=isNaN(d.getMonth())?cm:d.getMonth()+1;
-      const year=isNaN(d.getFullYear())||d.getFullYear()<2000?cy:d.getFullYear();
-      txs.push({desc,amount:Math.abs(amt),type:amt<0?'expense':'income',month,year,currency:'GTQ'});
+      if(!cols[1]||isNaN(amt)||amt===0)continue;
+      const d=new Date(cols[0]);
+      txs.push({desc:cols[1],amount:Math.abs(amt),type:amt<0?'expense':'income',month:isNaN(d.getMonth())?cm:d.getMonth()+1,year:isNaN(d.getFullYear())||d.getFullYear()<2000?cy:d.getFullYear(),currency:'GTQ'});
     }
-    const accId=parseInt(document.getElementById('cc-target-acc').value)||0;
+    const accId=document.getElementById('cc-target-acc').value||'';
     const prev=document.getElementById('csv-preview');
-    if(!txs.length){prev.innerHTML='<div class="empty">No se encontraron transacciones válidas.<br>Verifica que el CSV tenga columnas: fecha, descripción, monto</div>';return;}
-    prev.innerHTML=`<div class="alert-g" style="margin-bottom:10px">Se encontraron ${txs.length} transacciones</div>`+
-      txs.slice(0,5).map(t=>`<div class="item">
-        <div class="iico" style="background:rgba(55,138,221,0.1)">💳</div>
-        <div class="iinfo"><div class="iname">${t.desc}</div><div class="isub">${t.month}/${t.year}</div></div>
-        <div class="iamt ${t.type==='income'?'g':'r'}">${t.type==='income'?'+':'-'}Q${t.amount.toFixed(2)}</div>
-      </div>`).join('')+
-      (txs.length>5?`<div style="font-size:11px;color:var(--mt);text-align:center;padding:6px 0">...y ${txs.length-5} más</div>`:'') +
-      `<button class="btn" style="margin-top:10px" onclick="importCSV(event,${accId})">Importar ${txs.length} transacciones</button>`;
+    if(!txs.length){prev.innerHTML='<div class="empty">No se encontraron transacciones válidas</div>';return;}
     prev._txs=txs;
+    prev.innerHTML=`<div class="alert-g" style="margin-bottom:10px">Se encontraron ${txs.length} transacciones</div>`+
+      txs.slice(0,5).map(t=>`<div class="item"><div class="iico" style="background:rgba(55,138,221,0.1)">💳</div><div class="iinfo"><div class="iname">${t.desc}</div><div class="isub">${t.month}/${t.year}</div></div><div class="iamt ${t.type==='income'?'g':'r'}">${t.type==='income'?'+':'-'}Q${t.amount.toFixed(2)}</div></div>`).join('')+
+      (txs.length>5?`<div style="font-size:11px;color:var(--mt);text-align:center;padding:6px">...y ${txs.length-5} más</div>`:'')+
+      `<button class="btn" style="margin-top:10px" onclick="importCSV('${accId}')">Importar ${txs.length} transacciones</button>`;
   };
   reader.readAsText(file);
-}
-function importCSV(e,accId){
+};
+
+window.importCSV = async (accId) => {
   const prev=document.getElementById('csv-preview');
   const txs=prev._txs||[];
-  txs.forEach(t=>allTx.push({id:nid++,...t,cat:'cc',accId,note:'Importado CSV'}));
-  prev.innerHTML=`<div class="alert-g">✓ ${txs.length} transacciones importadas correctamente</div>`;
-  saveData();renderAll();
-}
+  for(const t of txs){
+    const tx={id:newId(),...t,cat:'cc',accId,note:'CSV'};
+    allTx.push(tx);await saveDoc('transactions',tx);
+  }
+  prev.innerHTML=`<div class="alert-g">✓ ${txs.length} transacciones importadas</div>`;
+  renderAll();
+};
 
-// ─── FX MODULE ────────────────────────────────────────────────
-function calcFX(){
+// ─── FX ──────────────────────────────────────────────────────
+window.calcFX = () => {
   const op=document.getElementById('fx-op').value;
   const usd=parseFloat(document.getElementById('fx-usd').value)||0;
   const tcGiven=parseFloat(document.getElementById('fx-tc-given').value)||0;
   if(!usd||!tcGiven){document.getElementById('fx-result').style.display='none';return;}
   document.getElementById('fx-result').style.display='block';
   let actual,ideal,loss;
-  if(op==='sell'){
-    actual=usd*tcGiven;ideal=usd*TC;loss=ideal-actual;
-    document.getElementById('fx-got').textContent='Q'+actual.toFixed(2);
-    document.getElementById('fx-got-lbl').textContent='Recibiste · Al TC Banguat serían Q'+ideal.toFixed(2);
-  }else{
-    actual=usd*tcGiven;ideal=usd*TC;loss=actual-ideal;
-    document.getElementById('fx-got').textContent='Q'+actual.toFixed(2);
-    document.getElementById('fx-got-lbl').textContent='Pagaste · Al TC Banguat serían Q'+ideal.toFixed(2);
-  }
+  if(op==='sell'){actual=usd*tcGiven;ideal=usd*TC;loss=ideal-actual;document.getElementById('fx-got').textContent='Q'+actual.toFixed(2);document.getElementById('fx-got-lbl').textContent='Recibiste · Al TC Banguat serían Q'+ideal.toFixed(2);}
+  else{actual=usd*tcGiven;ideal=usd*TC;loss=actual-ideal;document.getElementById('fx-got').textContent='Q'+actual.toFixed(2);document.getElementById('fx-got-lbl').textContent='Pagaste · Al TC Banguat serían Q'+ideal.toFixed(2);}
   loss=Math.max(0,loss);
-  const ll=document.getElementById('fx-loss-lbl');
-  ll.className='fx-loss '+(loss>0?'r':'g');
+  const ll=document.getElementById('fx-loss-lbl');ll.className='fx-loss '+(loss>0?'r':'g');
   ll.textContent=loss>0?'Pérdida cambiaria: Q'+loss.toFixed(2):'Sin pérdida en esta operación';
-  document.getElementById('fx-diff-det').textContent='Diferencial: Q'+Math.abs(tcGiven-TC).toFixed(4)+' por USD · Total USD: '+usd;
-}
-function registerFX(){
+  document.getElementById('fx-diff-det').textContent='Diferencial: Q'+Math.abs(tcGiven-TC).toFixed(4)+' por USD';
+};
+
+window.registerFX = async () => {
   const op=document.getElementById('fx-op').value;
   const usd=parseFloat(document.getElementById('fx-usd').value)||0;
   const tcGiven=parseFloat(document.getElementById('fx-tc-given').value)||0;
   if(!usd||!tcGiven){showMsg('fx-msg','Completa los campos','e');return;}
   let loss=op==='sell'?(usd*TC)-(usd*tcGiven):(usd*tcGiven)-(usd*TC);
   loss=Math.max(0,parseFloat(loss.toFixed(2)));
-  fxOps.push({id:nid++,op,usd,tcGiven,tcRef:TC,loss,month:cm,year:cy,date:new Date().toISOString().slice(0,10)});
+  const fx={id:newId(),op,usd,tcGiven,tcRef:TC,loss,month:cm,year:cy,date:new Date().toISOString().slice(0,10)};
+  fxOps.push(fx);await saveDoc('fxOps',fx);
   document.getElementById('fx-usd').value='';document.getElementById('fx-tc-given').value='';
   document.getElementById('fx-result').style.display='none';
-  saveData();renderAll();showMsg('fx-msg','✓ Operación registrada','');
-}
+  renderAll();showMsg('fx-msg','✓ Operación registrada','');
+};
+
 function renderFX(){
   const ops=fxOps.filter(f=>f.month===cm&&f.year===cy).slice().reverse();
-  const totalLoss=getFXLoss(cm,cy);
-  document.getElementById('fx-loss-m').textContent='Q'+totalLoss.toFixed(2);
+  document.getElementById('fx-loss-m').textContent='Q'+getFXLoss(cm,cy).toFixed(2);
   document.getElementById('fx-ops-m').textContent=ops.length;
   document.getElementById('fx-tc-ref').value=TC.toFixed(4);
   const el=document.getElementById('fx-history');
   if(!ops.length){el.innerHTML='<div class="empty">Sin operaciones este mes</div>';return;}
   el.innerHTML=ops.map(f=>`<div class="item">
     <div class="iico" style="background:rgba(55,138,221,0.1)">💱</div>
-    <div class="iinfo">
-      <div class="iname">${f.op==='sell'?'Vendí':'Compré'} $${f.usd.toFixed(2)} USD</div>
-      <div class="isub">TC dado: Q${f.tcGiven} · Banguat: Q${f.tcRef} · ${f.date||''}</div>
-    </div>
-    <div style="text-align:right;flex-shrink:0">
-      <div class="iamt r">−Q${f.loss.toFixed(2)}</div>
-      <div style="font-size:9px;color:var(--mt)">diferencial</div>
-    </div>
+    <div class="iinfo"><div class="iname">${f.op==='sell'?'Vendí':'Compré'} $${f.usd.toFixed(2)} USD</div>
+    <div class="isub">TC dado: Q${f.tcGiven} · Banguat: Q${f.tcRef} · ${f.date||''}</div></div>
+    <div style="text-align:right;flex-shrink:0"><div class="iamt r">−Q${f.loss.toFixed(2)}</div><div style="font-size:9px;color:var(--mt)">diferencial</div></div>
   </div>`).join('');
 }
 
-// ─── RENDER LOANS ─────────────────────────────────────────────
+// ─── LOANS ───────────────────────────────────────────────────
 function renderLoans(){
   const el=document.getElementById('loans-list');
   if(!loans.length){el.innerHTML='<div class="empty">Sin préstamos registrados</div>';return;}
@@ -804,23 +806,21 @@ function renderLoans(){
     const paid=l.total-l.balance,p=l.total>0?Math.round(paid/l.total*100):0;
     const days=daysUntil(l.due);
     const b=days<0?'<span class="badge br">Vencido</span>':days<=30?`<span class="badge ba">${days}d</span>`:`<span class="badge bb">${l.due?MS[new Date(l.due).getMonth()]+' '+new Date(l.due).getFullYear():'—'}</span>`;
-    const int=Math.round(l.balance*(l.rate||0)/100/12);
     return `<div style="background:var(--dk2);border-radius:12px;padding:13px;border:0.5px solid var(--brd);margin-bottom:9px">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-        <div>
-          <div style="font-size:18px;margin-bottom:2px">${l.icon||'🏦'}</div>
-          <div style="font-size:13px;font-weight:500;color:var(--tx)">${l.name} <span class="badge bb">${l.currency||'GTQ'}</span></div>
-          <div style="font-size:10px;color:var(--mt)">${l.rate||0}% anual · cuota ${fmt(l.payment,l.currency||'GTQ')}</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">${b}<button class="dbtn" onclick="delLoan(${l.id})">eliminar</button></div>
+        <div><div style="font-size:18px;margin-bottom:2px">${l.icon||'🏦'}</div>
+        <div style="font-size:13px;font-weight:500;color:var(--tx)">${l.name} <span class="badge bb">${l.currency||'GTQ'}</span></div>
+        <div style="font-size:10px;color:var(--mt)">${l.rate||0}% anual · cuota ${fmt(l.payment,l.currency||'GTQ')}</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">${b}<button class="dbtn" onclick="delLoan('${l.id}')">eliminar</button></div>
       </div>
       <div class="ltrack"><div class="lfill" style="width:${p}%;background:${p>80?'#1D9E75':p>50?'#EF9F27':'#378ADD'}"></div></div>
       <div class="lr"><span>Pagado: <strong>${fmt(paid,l.currency||'GTQ')}</strong></span><span>Pendiente: <strong style="color:#f87171">${fmt(l.balance,l.currency||'GTQ')}</strong></span></div>
-      <div class="lr" style="margin-top:3px"><span>Interés/mes ≈ <strong style="color:#fbbf24">${fmt(int,l.currency||'GTQ')}</strong></span><span>Total: <strong>${fmt(l.total,l.currency||'GTQ')}</strong></span></div>
+      <div class="lr" style="margin-top:3px"><span>Interés/mes ≈ <strong style="color:#fbbf24">${fmt(Math.round(l.balance*(l.rate||0)/100/12),l.currency||'GTQ')}</strong></span><span>Total: <strong>${fmt(l.total,l.currency||'GTQ')}</strong></span></div>
     </div>`;
   }).join('');
 }
-function addLoan(){
+
+window.addLoan = async () => {
   const name=document.getElementById('l-name').value.trim();
   const total=parseFloat(document.getElementById('l-total').value)||0;
   const bal=parseFloat(document.getElementById('l-bal').value)||total;
@@ -831,13 +831,18 @@ function addLoan(){
   const currency=document.getElementById('l-currency').value;
   const icon=document.getElementById('l-icon').value.trim()||'🏦';
   if(!name||!total||!pay){showMsg('l-msg','Completa nombre, monto y cuota','e');return;}
-  loans.push({id:nid++,name,icon,total,balance:bal,rate,payment:pay,day,due,currency});
+  const loan={id:newId(),name,icon,total,balance:bal,rate,payment:pay,day,due,currency};
+  loans.push(loan);await saveDoc('loans',loan);
   ['l-name','l-total','l-bal','l-rate','l-pay','l-day','l-due','l-icon'].forEach(id=>document.getElementById(id).value='');
-  saveData();renderAll();showMsg('l-msg','✓ Préstamo registrado','');
-}
-function delLoan(id){if(confirm('¿Eliminar préstamo?')){loans=loans.filter(l=>l.id!==id);saveData();renderAll();}}
+  renderAll();showMsg('l-msg','✓ Préstamo registrado','');
+};
 
-// ─── RENDER COMMITS ───────────────────────────────────────────
+window.delLoan = async (id) => {
+  if(!confirm('¿Eliminar préstamo?'))return;
+  loans=loans.filter(l=>l.id!==id);await deleteDocument('loans',id);renderAll();
+};
+
+// ─── COMMITS ─────────────────────────────────────────────────
 function renderCommits(){
   const el=document.getElementById('commits-list');
   const fl={monthly:'Mensual',weekly:'Semanal',biweekly:'Quincenal',yearly:'Anual'};
@@ -847,23 +852,22 @@ function renderCommits(){
     return `<div style="background:var(--dk2);border-radius:11px;padding:12px;border:0.5px solid var(--brd);margin-bottom:8px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
         <div style="font-size:18px">${c.icon||'📌'}</div>
-        <div style="flex:1">
-          <div style="font-size:13px;font-weight:500;color:var(--tx)">${c.name} <span class="badge bb">${c.currency||'GTQ'}</span></div>
-          <div style="font-size:10px;color:var(--mt)">${fl[c.freq]||'Mensual'} · día ${c.day||1}</div>
-        </div>
+        <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--tx)">${c.name} <span class="badge bb">${c.currency||'GTQ'}</span></div>
+        <div style="font-size:10px;color:var(--mt)">${fl[c.freq]||'Mensual'} · día ${c.day||1}</div></div>
         <div style="font-size:14px;font-weight:500;color:${paid?'#34d399':'#f87171'}">${fmt(c.amount,c.currency||'GTQ')}</div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center">
         <span>${paid?'<span class="badge bg">Pagado</span>':'<span class="badge br">Pendiente</span>'}</span>
         <div style="display:flex;gap:5px">
-          ${!paid?`<button class="paybtn" onclick="payC(${c.id})">Marcar pagado</button>`:`<button class="dbtn" onclick="unpayC(${c.id})">deshacer</button>`}
-          <button class="dbtn" onclick="delC(${c.id})">eliminar</button>
+          ${!paid?`<button class="paybtn" onclick="payC('${c.id}')">Marcar pagado</button>`:`<button class="dbtn" onclick="unpayC('${c.id}')">deshacer</button>`}
+          <button class="dbtn" onclick="delC('${c.id}')">eliminar</button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
-function addCommit(){
+
+window.addCommit = async () => {
   const name=document.getElementById('c-name').value.trim();
   const amt=parseFloat(document.getElementById('c-amt').value)||0;
   const cur=document.getElementById('c-cur').value;
@@ -871,71 +875,78 @@ function addCommit(){
   const day=parseInt(document.getElementById('c-day').value)||1;
   const icon=document.getElementById('c-icon').value.trim()||'📌';
   if(!name||!amt){showMsg('c-msg','Completa nombre y monto','e');return;}
-  commits.push({id:nid++,name,icon,amount:amt,currency:cur,freq,day,paidMonths:[]});
+  const commit={id:newId(),name,icon,amount:amt,currency:cur,freq,day,paidMonths:[]};
+  commits.push(commit);await saveDoc('commits',commit);
   ['c-name','c-amt','c-day','c-icon'].forEach(id=>document.getElementById(id).value='');
-  saveData();renderAll();showMsg('c-msg','✓ Compromiso agregado','');
-}
-function payC(id){const c=commits.find(c=>c.id===id);if(c&&!isPaid(c,cm,cy)){if(!c.paidMonths)c.paidMonths=[];c.paidMonths.push(mkStr(cm,cy));}saveData();renderAll();}
-function unpayC(id){const c=commits.find(c=>c.id===id);if(c)c.paidMonths=(c.paidMonths||[]).filter(s=>s!==mkStr(cm,cy));saveData();renderAll();}
-function delC(id){if(confirm('¿Eliminar compromiso?')){commits=commits.filter(c=>c.id!==id);saveData();renderAll();}}
+  renderAll();showMsg('c-msg','✓ Compromiso agregado','');
+};
 
-// ─── RENDER PENDING ───────────────────────────────────────────
+window.payC = async (id) => {
+  const c=commits.find(c=>c.id===id);if(!c)return;
+  if(!isPaid(c,cm,cy)){if(!c.paidMonths)c.paidMonths=[];c.paidMonths.push(mkStr(cm,cy));}
+  await saveDoc('commits',c);renderAll();
+};
+window.unpayC = async (id) => {
+  const c=commits.find(c=>c.id===id);if(!c)return;
+  c.paidMonths=(c.paidMonths||[]).filter(s=>s!==mkStr(cm,cy));
+  await saveDoc('commits',c);renderAll();
+};
+window.delC = async (id) => {
+  if(!confirm('¿Eliminar compromiso?'))return;
+  commits=commits.filter(c=>c.id!==id);await deleteDocument('commits',id);renderAll();
+};
+
+// ─── PENDING ─────────────────────────────────────────────────
 function renderPending(){
   const el=document.getElementById('pending-list');
   const up=getUnpaid(cm,cy);
   if(!up.length){el.innerHTML='<div class="alert-g">Sin pagos pendientes este mes 🎉</div>';return;}
   el.innerHTML=up.map(c=>`<div style="background:rgba(226,75,74,0.05);border:0.5px solid rgba(226,75,74,0.18);border-radius:11px;padding:13px;margin-bottom:9px">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
-      <div class="dot-r"></div>
-      <div style="font-size:18px">${c.icon||'📌'}</div>
+      <div class="dot-r"></div><div style="font-size:18px">${c.icon||'📌'}</div>
       <div style="flex:1;font-size:13px;font-weight:500;color:var(--tx)">${c.name}</div>
       <div style="font-size:14px;font-weight:500;color:#f87171">${fmt(c.amount,c.currency||'GTQ')}</div>
     </div>
     <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mt)">
       <span>Día ${c.day||1} · ${c.currency||'GTQ'}</span>
-      <button class="paybtn" onclick="payC(${c.id})">Pagar ahora</button>
+      <button class="paybtn" onclick="payC('${c.id}')">Pagar ahora</button>
     </div>
   </div>`).join('');
 }
 
-// ─── RENDER TX LIST ───────────────────────────────────────────
+// ─── TRANSACTIONS ─────────────────────────────────────────────
 function renderTxList(){
   const txs=allTx.filter(t=>t.month===cm&&t.year===cy).slice().reverse();
   const el=document.getElementById('tx-list');
   if(!txs.length){el.innerHTML='<div class="empty">Sin movimientos este mes</div>';return;}
   el.innerHTML=txs.map(t=>`<div class="item">
     <div class="iico" style="background:${t.type==='income'?'rgba(29,158,117,0.15)':'rgba(226,75,74,0.1)'}">${CI[t.cat]||'💳'}</div>
-    <div class="iinfo">
-      <div class="iname">${t.desc}</div>
-      <div class="isub">${CN[t.cat]||''} · ${t.currency||'GTQ'}${t.note?' · '+t.note:''}</div>
-    </div>
+    <div class="iinfo"><div class="iname">${t.desc}</div><div class="isub">${CN[t.cat]||''} · ${t.currency||'GTQ'}${t.note?' · '+t.note:''}</div></div>
     <div class="iamt ${t.type==='income'?'g':'r'}">${t.type==='income'?'+':'-'}${fmt(t.amount,t.currency||'GTQ')}</div>
   </div>`).join('');
 }
-function addTx(){
+
+window.addTx = async () => {
   const desc=document.getElementById('a-desc').value.trim();
   const amt=parseFloat(document.getElementById('a-amt').value)||0;
   const cur=document.getElementById('a-cur').value;
   const type=document.getElementById('a-type').value;
   const cat=document.getElementById('a-cat').value;
-  const accId=parseInt(document.getElementById('a-acc').value)||0;
+  const accId=document.getElementById('a-acc').value||'';
   const dateVal=document.getElementById('a-date').value;
   const note=document.getElementById('a-note').value.trim();
   const d=dateVal?new Date(dateVal):new Date();
   if(!desc||!amt){showMsg('a-msg','Completa descripción y monto','e');return;}
-  allTx.push({id:nid++,desc,amount:amt,currency:cur,type,cat,accId,note,month:d.getMonth()+1,year:d.getFullYear()});
-  if(accId){
-    const acc=accounts.find(a=>a.id===accId);
-    if(acc){const delta=type==='income'?amt:-amt;acc.balance=parseFloat((acc.balance+(cur==='USD'&&acc.currency==='GTQ'?delta*TC:delta)).toFixed(2));}
-  }
+  const tx={id:newId(),desc,amount:amt,currency:cur,type,cat,accId,note,month:d.getMonth()+1,year:d.getFullYear()};
+  allTx.push(tx);await saveDoc('transactions',tx);
+  if(accId){const acc=accounts.find(a=>a.id===accId);if(acc){acc.balance=parseFloat((acc.balance+(type==='income'?amt:-amt)).toFixed(2));await saveDoc('accounts',acc);}}
   document.getElementById('a-desc').value='';document.getElementById('a-amt').value='';document.getElementById('a-note').value='';
-  saveData();renderAll();showMsg('a-msg','✓ Registrado','');
-}
+  renderAll();showMsg('a-msg','✓ Guardado en Firebase','');
+};
 
-// ─── RENDER CASHFLOW ──────────────────────────────────────────
+// ─── CASHFLOW ─────────────────────────────────────────────────
 function renderCashflow(){
-  const baseInc=getInc(cm,cy)||8000;
-  const baseExp=getExp(cm,cy)||1500;
+  const baseInc=getInc(cm,cy)||8000,baseExp=getExp(cm,cy)||1500;
   const lp=getLoanTotal(),cp=getCommitTotal();
   let total=0,html='';
   for(let i=0;i<6;i++){
@@ -943,17 +954,16 @@ function renderCashflow(){
     const mInc=getInc(m,y)||baseInc,mExp=getExp(m,y)||baseExp;
     const net=mInc-mExp-lp-cp;total+=net;
     const inW=Math.min(98,Math.round(mInc/(mInc+mExp+lp+cp+1)*100));
-    html+=`<div class="cf-card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div style="font-size:12px;font-weight:500;color:var(--tx)">${MS[m-1]} ${y}</div>
-        <div style="font-size:13px;font-weight:500;color:${net>=0?'#34d399':'#f87171'}">${net>=0?'+':''}${fmtQ(net)}</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:4px;font-size:11px">
-        <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Ingresos</span><strong style="color:#34d399">${fmtQ(mInc)}</strong></div>
-        <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Egresos variables</span><strong style="color:#f87171">${fmtQ(mExp)}</strong></div>
-        <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Préstamos + compromisos</span><strong style="color:#fbbf24">${fmtQ(lp+cp)}</strong></div>
-      </div>
-      <div class="cf-bar"><div class="cf-in" style="width:${inW}%"></div><div class="cf-out" style="width:${100-inW}%"></div></div>
+    html+=`<div class="cf-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div style="font-size:12px;font-weight:500;color:var(--tx)">${MS[m-1]} ${y}</div>
+      <div style="font-size:13px;font-weight:500;color:${net>=0?'#34d399':'#f87171'}">${net>=0?'+':''}${fmtQ(net)}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;font-size:11px">
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Ingresos</span><strong style="color:#34d399">${fmtQ(mInc)}</strong></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Egresos variables</span><strong style="color:#f87171">${fmtQ(mExp)}</strong></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Fijos (préstamos+compromisos)</span><strong style="color:#fbbf24">${fmtQ(lp+cp)}</strong></div>
+    </div>
+    <div class="cf-bar"><div class="cf-in" style="width:${inW}%"></div><div class="cf-out" style="width:${100-inW}%"></div></div>
     </div>`;
   }
   document.getElementById('cf-months').innerHTML=html;
@@ -962,7 +972,7 @@ function renderCashflow(){
   document.getElementById('cf-sub').textContent=t>=0?'Proyección positiva — finanzas saludables':'Proyección negativa — revisar estructura de gastos';
 }
 
-// ─── RENDER CHARTS ────────────────────────────────────────────
+// ─── CHARTS ──────────────────────────────────────────────────
 function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 function renderCharts(){
   const labels=[],incD=[],expD=[],netD=[],fxD=[];
@@ -970,116 +980,38 @@ function renderCharts(){
     const d=new Date(cy,cm-1-i,1);const m=d.getMonth()+1,y=d.getFullYear();
     labels.push(MS[m-1]);
     incD.push(Math.round(getInc(m,y)));expD.push(Math.round(getExp(m,y)));
-    netD.push(Math.round(getInc(m,y)-getExp(m,y)));
-    fxD.push(parseFloat(getFXLoss(m,y).toFixed(2)));
+    netD.push(Math.round(getInc(m,y)-getExp(m,y)));fxD.push(parseFloat(getFXLoss(m,y).toFixed(2)));
   }
   const gOpts={responsive:true,plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{x:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},y:{ticks:{color:'#4a6080',font:{size:9},callback:v=>'Q'+v.toLocaleString()},grid:{color:'rgba(55,138,221,0.05)'}}}};
-
-  destroyChart('ch1');
-  charts['ch1']=new Chart(document.getElementById('ch1'),{type:'bar',data:{labels,datasets:[{label:'Ingresos',data:incD,backgroundColor:'rgba(29,158,117,0.7)',borderRadius:3},{label:'Egresos',data:expD,backgroundColor:'rgba(226,75,74,0.65)',borderRadius:3}]},options:{...gOpts}});
-
-  const catExp={};
-  allTx.filter(t=>t.month===cm&&t.year===cy&&t.type==='expense').forEach(t=>{catExp[t.cat]=(catExp[t.cat]||0)+toGTQ(t.amount,t.currency||'GTQ');});
+  destroyChart('ch1');charts['ch1']=new Chart(document.getElementById('ch1'),{type:'bar',data:{labels,datasets:[{label:'Ingresos',data:incD,backgroundColor:'rgba(29,158,117,0.7)',borderRadius:3},{label:'Egresos',data:expD,backgroundColor:'rgba(226,75,74,0.65)',borderRadius:3}]},options:{...gOpts}});
+  const catExp={};allTx.filter(t=>t.month===cm&&t.year===cy&&t.type==='expense').forEach(t=>{catExp[t.cat]=(catExp[t.cat]||0)+toGTQ(t.amount,t.currency||'GTQ');});
   const ckeys=Object.keys(catExp);
-  destroyChart('ch2');
-  if(ckeys.length){charts['ch2']=new Chart(document.getElementById('ch2'),{type:'doughnut',data:{labels:ckeys.map(k=>CN[k]||k),datasets:[{data:ckeys.map(k=>Math.round(catExp[k])),backgroundColor:ckeys.map(k=>CC_COLORS[k]||'#7a94b8'),borderWidth:0}]},options:{responsive:true,cutout:'62%',plugins:{legend:{position:'right',labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}}}});}
-
-  destroyChart('ch3');
-  charts['ch3']=new Chart(document.getElementById('ch3'),{type:'line',data:{labels,datasets:[{label:'Flujo neto',data:netD,borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.07)',tension:0.4,fill:true,pointBackgroundColor:netD.map(v=>v>=0?'#1D9E75':'#E24B4A'),pointRadius:4,borderWidth:1.5}]},options:{...gOpts}});
-
-  destroyChart('ch4');
-  charts['ch4']=new Chart(document.getElementById('ch4'),{type:'bar',data:{labels,datasets:[{label:'Pérdida cambiaria Q',data:fxD,backgroundColor:'rgba(226,75,74,0.6)',borderRadius:3}]},options:{...gOpts}});
-
+  destroyChart('ch2');if(ckeys.length){charts['ch2']=new Chart(document.getElementById('ch2'),{type:'doughnut',data:{labels:ckeys.map(k=>CN[k]||k),datasets:[{data:ckeys.map(k=>Math.round(catExp[k])),backgroundColor:ckeys.map(k=>CC_COLORS[k]||'#7a94b8'),borderWidth:0}]},options:{responsive:true,cutout:'62%',plugins:{legend:{position:'right',labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}}}});}
+  destroyChart('ch3');charts['ch3']=new Chart(document.getElementById('ch3'),{type:'line',data:{labels,datasets:[{label:'Flujo neto',data:netD,borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.07)',tension:0.4,fill:true,pointBackgroundColor:netD.map(v=>v>=0?'#1D9E75':'#E24B4A'),pointRadius:4,borderWidth:1.5}]},options:{...gOpts}});
+  destroyChart('ch4');charts['ch4']=new Chart(document.getElementById('ch4'),{type:'bar',data:{labels,datasets:[{label:'Pérdida cambiaria Q',data:fxD,backgroundColor:'rgba(226,75,74,0.6)',borderRadius:3}]},options:{...gOpts}});
   const accLabels=accounts.map(a=>a.name.length>12?a.name.slice(0,12)+'…':a.name);
   const accVals=accounts.map(a=>a.currency==='USD'?parseFloat((a.balance*TC).toFixed(2)):parseFloat(a.balance.toFixed(2)));
-  destroyChart('ch5');
-  if(accounts.length){charts['ch5']=new Chart(document.getElementById('ch5'),{type:'bar',data:{labels:accLabels,datasets:[{label:'Balance en GTQ',data:accVals,backgroundColor:accVals.map(v=>v>=0?'rgba(55,138,221,0.6)':'rgba(226,75,74,0.6)'),borderRadius:3}]},options:{...gOpts,indexAxis:'y',scales:{y:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},x:{ticks:{color:'#4a6080',font:{size:9},callback:v=>'Q'+v.toLocaleString()},grid:{color:'rgba(55,138,221,0.05)'}}}}}});}
+  destroyChart('ch5');if(accounts.length){charts['ch5']=new Chart(document.getElementById('ch5'),{type:'bar',data:{labels:accLabels,datasets:[{label:'Balance GTQ',data:accVals,backgroundColor:accVals.map(v=>v>=0?'rgba(55,138,221,0.6)':'rgba(226,75,74,0.6)'),borderRadius:3}]},options:{...gOpts,indexAxis:'y',scales:{y:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},x:{ticks:{color:'#4a6080',font:{size:9},callback:v=>'Q'+v.toLocaleString()},grid:{color:'rgba(55,138,221,0.05)'}}}}}});}
 }
 
-// ─── RENDER DATA STATS ────────────────────────────────────────
-function renderDataStats(){
-  document.getElementById('stat-tx').textContent=allTx.length;
-  document.getElementById('stat-acc').textContent=accounts.length;
-  document.getElementById('stat-loans').textContent=loans.length;
-  document.getElementById('stat-commits').textContent=commits.length;
-  document.getElementById('stat-fx').textContent=fxOps.length;
-}
-
-// ─── NAVIGATION ───────────────────────────────────────────────
-function changeMonth(dir){
+// ─── NAVIGATION ──────────────────────────────────────────────
+window.changeMonth = async (dir) => {
   cm+=dir;if(cm>12){cm=1;cy++;}if(cm<1){cm=12;cy--;}
   document.getElementById('month-label').textContent=MONTHS[cm-1]+' '+cy;
-  saveData();renderAll();
-}
-function showTab(tab,el){
+  await saveSettings();renderAll();
+};
+window.showTab = (tab,el) => {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('s-'+tab).classList.add('active');
-  el.classList.add('active');
-  renderAll();
-}
+  el.classList.add('active');renderAll();
+};
 
-// ─── RENDER ALL ───────────────────────────────────────────────
 function renderAll(){
-  renderDash();renderAccounts();renderFX();renderLoans();renderCommits();renderPending();renderTxList();renderCashflow();renderDataStats();
+  if(!currentUser)return;
+  renderDash();renderAccounts();renderFX();renderLoans();renderCommits();renderPending();renderTxList();renderCashflow();
   setTimeout(renderCharts,100);
 }
-
-// ─── DEFAULT DATA ─────────────────────────────────────────────
-function initDefaultData(){
-  const now=new Date();cm=now.getMonth()+1;cy=now.getFullYear();TC=7.75;nid=1000;
-  accounts=[
-    {id:1,name:'Banco BAM GTQ',icon:'🏦',type:'bank-gtq',currency:'GTQ',balance:15000,limit:0},
-    {id:2,name:'Cuenta USD',icon:'🏦',type:'bank-usd',currency:'USD',balance:800,limit:0},
-    {id:3,name:'Efectivo',icon:'💵',type:'cash-gtq',currency:'GTQ',balance:500,limit:0},
-    {id:4,name:'Visa Promerica',icon:'💳',type:'cc',currency:'GTQ',balance:-2800,limit:15000},
-  ];
-  loans=[
-    {id:2,name:'Banco Industrial',icon:'🏦',total:50000,balance:35000,rate:12.5,payment:1200,day:5,due:'2027-06-05',currency:'GTQ'},
-    {id:3,name:'Crédito Personal',icon:'💳',total:15000,balance:8500,rate:18,payment:600,day:15,due:'2026-10-15',currency:'GTQ'},
-  ];
-  commits=[
-    {id:4,name:'Diezmo',icon:'⛪',amount:800,currency:'GTQ',freq:'monthly',day:1,paidMonths:[]},
-    {id:5,name:'Seguro médico',icon:'❤️',amount:350,currency:'GTQ',freq:'monthly',day:10,paidMonths:[cy+'-'+cm]},
-    {id:6,name:'Netflix',icon:'📺',amount:25,currency:'USD',freq:'monthly',day:5,paidMonths:[]},
-  ];
-  const m=cm,y=cy;
-  allTx=[
-    {id:7,desc:'Salario',amount:8000,currency:'GTQ',type:'income',cat:'general',accId:1,note:'',month:m,year:y},
-    {id:8,desc:'Supermercado',amount:380,currency:'GTQ',type:'expense',cat:'food',accId:1,note:'',month:m,year:y},
-    {id:9,desc:'Uber',amount:35,currency:'GTQ',type:'expense',cat:'transport',accId:3,note:'',month:m,year:y},
-    {id:10,desc:'Hugo Boss camisa',amount:85,currency:'USD',type:'expense',cat:'clothing',accId:4,note:'',month:m,year:y},
-    {id:11,desc:'Consultoría',amount:500,currency:'USD',type:'income',cat:'general',accId:2,note:'',month:m,year:y},
-    {id:12,desc:'Salario',amount:8000,currency:'GTQ',type:'income',cat:'general',accId:1,note:'',month:m===1?12:m-1,year:m===1?y-1:y},
-    {id:13,desc:'Gastos varios',amount:2100,currency:'GTQ',type:'expense',cat:'general',accId:1,note:'',month:m===1?12:m-1,year:m===1?y-1:y},
-    {id:14,desc:'Salario',amount:7800,currency:'GTQ',type:'income',cat:'general',accId:1,note:'',month:m<=2?12-(2-m):m-2,year:m<=2?y-1:y},
-    {id:15,desc:'Gastos',amount:1950,currency:'GTQ',type:'expense',cat:'general',accId:1,note:'',month:m<=2?12-(2-m):m-2,year:m<=2?y-1:y},
-    {id:16,desc:'Salario',amount:8200,currency:'GTQ',type:'income',cat:'general',accId:1,note:'',month:m<=3?12-(3-m):m-3,year:m<=3?y-1:y},
-    {id:17,desc:'Gastos',amount:2300,currency:'GTQ',type:'expense',cat:'general',accId:1,note:'',month:m<=3?12-(3-m):m-3,year:m<=3?y-1:y},
-    {id:18,desc:'Salario',amount:7500,currency:'GTQ',type:'income',cat:'general',accId:1,note:'',month:m<=4?12-(4-m):m-4,year:m<=4?y-1:y},
-    {id:19,desc:'Gastos',amount:2000,currency:'GTQ',type:'expense',cat:'general',accId:1,note:'',month:m<=4?12-(4-m):m-4,year:m<=4?y-1:y},
-    {id:20,desc:'Salario',amount:8000,currency:'GTQ',type:'income',cat:'general',accId:1,note:'',month:m<=5?12-(5-m):m-5,year:m<=5?y-1:y},
-    {id:21,desc:'Gastos',amount:2150,currency:'GTQ',type:'expense',cat:'general',accId:1,note:'',month:m<=5?12-(5-m):m-5,year:m<=5?y-1:y},
-  ];
-  fxOps=[
-    {id:22,op:'sell',usd:200,tcGiven:7.68,tcRef:7.75,loss:14,month:m,year:y,date:y+'-'+String(m).padStart(2,'0')+'-05'},
-    {id:23,op:'buy',usd:100,tcGiven:7.82,tcRef:7.75,loss:7,month:m,year:y,date:y+'-'+String(m).padStart(2,'0')+'-10'},
-  ];
-  nid=200;
-}
-
-// ─── INIT ─────────────────────────────────────────────────────
-(function init(){
-  const loaded=loadData();
-  if(!loaded) initDefaultData();
-  document.getElementById('month-label').textContent=MONTHS[cm-1]+' '+cy;
-  document.getElementById('a-date').value=new Date().toISOString().slice(0,10);
-  document.getElementById('tc-val').textContent='Q'+TC.toFixed(4);
-  document.getElementById('fx-tc-val').textContent=TC.toFixed(4);
-  document.getElementById('fx-tc-ref').value=TC.toFixed(4);
-  renderAll();
-  fetchTC();
-})();
 </script>
 </body>
 </html>
