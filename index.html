@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v3.1 -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -594,7 +595,7 @@ window.fetchTC = async () => {
 
 //  HELPERS 
 function fmt(n,cur){const s=cur==='USD'?'$':'Q';return s+parseFloat(Math.abs(n)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2})}
-function fmtQ(n){return 'Q'+Math.round(n).toLocaleString('es-GT')}
+function fmtQ(n){return 'Q'+Math.round(n).toLocaleString()}
 function toGTQ(amount,currency){return currency==='USD'?amount*TC:amount}
 function mkStr(m,y){return y+'-'+m}
 function getTx(m,y){return allTx.filter(t=>t.month===m&&t.year===y)}
@@ -623,7 +624,7 @@ function renderDash(){
   const net=inc-exp-lp-cp-fxl;
   const usdNet=getUSDNet(m,y);
   const el=document.getElementById('d-net');
-  el.innerHTML='<sup>Q</sup>'+Math.abs(Math.round(net)).toLocaleString('es-GT');
+  el.innerHTML='<sup>Q</sup>'+Math.abs(Math.round(net)).toLocaleString();
   el.style.color=net>=0?'#fff':'#f87171';
   document.getElementById('d-sub').textContent=net>=0?'Flujo positivo este mes':'Flujo negativo  revisar gastos';
   document.getElementById('d-inc').textContent=fmtQ(inc);
@@ -968,7 +969,7 @@ function renderCashflow(){
   }
   document.getElementById('cf-months').innerHTML=html;
   const t=Math.round(total);
-  document.getElementById('cf-total').textContent=Math.abs(t).toLocaleString('es-GT');
+  document.getElementById('cf-total').textContent=Math.abs(t).toLocaleString();
   document.getElementById('cf-sub').textContent=t>=0?'Proyeccion positiva  finanzas saludables':'Proyeccion negativa  revisar estructura de gastos';
 }
 
@@ -982,16 +983,16 @@ function renderCharts(){
     incD.push(Math.round(getInc(m,y)));expD.push(Math.round(getExp(m,y)));
     netD.push(Math.round(getInc(m,y)-getExp(m,y)));fxD.push(parseFloat(getFXLoss(m,y).toFixed(2)));
   }
-  const gOpts={responsive:true,plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{x:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},y:{ticks:{color:'#4a6080',font:{size:9},callback:v=>'Q'+v.toLocaleString()},grid:{color:'rgba(55,138,221,0.05)'}}}};
-  destroyChart('ch1');charts['ch1']=new Chart(document.getElementById('ch1'),{type:'bar',data:{labels,datasets:[{label:'Ingresos',data:incD,backgroundColor:'rgba(29,158,117,0.7)',borderRadius:3},{label:'Egresos',data:expD,backgroundColor:'rgba(226,75,74,0.65)',borderRadius:3}]},options:{...gOpts}});
+  const gOpts={responsive:true,plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{x:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},y:{ticks:{color:'#4a6080',font:{size:9},callback:v=>'Q'+Math.round(v).toString()},grid:{color:'rgba(55,138,221,0.05)'}}}};
+  destroyChart('ch1');charts['ch1']=new Chart(document.getElementById('ch1'),{type:'bar',data:{labels,datasets:[{label:'Ingresos',data:incD,backgroundColor:'rgba(29,158,117,0.7)',borderRadius:3},{label:'Egresos',data:expD,backgroundColor:'rgba(226,75,74,0.65)',borderRadius:3}]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{x:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},y:{ticks:{color:'#4a6080',font:{size:9},callback:function(v){return 'Q'+Math.round(v).toString()}},grid:{color:'rgba(55,138,221,0.05)'}}}}});
   const catExp={};allTx.filter(t=>t.month===cm&&t.year===cy&&t.type==='expense').forEach(t=>{catExp[t.cat]=(catExp[t.cat]||0)+toGTQ(t.amount,t.currency||'GTQ');});
   const ckeys=Object.keys(catExp);
   destroyChart('ch2');if(ckeys.length){charts['ch2']=new Chart(document.getElementById('ch2'),{type:'doughnut',data:{labels:ckeys.map(k=>CN[k]||k),datasets:[{data:ckeys.map(k=>Math.round(catExp[k])),backgroundColor:ckeys.map(k=>CC_COLORS[k]||'#7a94b8'),borderWidth:0}]},options:{responsive:true,cutout:'62%',plugins:{legend:{position:'right',labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}}}});}
-  destroyChart('ch3');charts['ch3']=new Chart(document.getElementById('ch3'),{type:'line',data:{labels,datasets:[{label:'Flujo neto',data:netD,borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.07)',tension:0.4,fill:true,pointBackgroundColor:netD.map(v=>v>=0?'#1D9E75':'#E24B4A'),pointRadius:4,borderWidth:1.5}]},options:{...gOpts}});
-  destroyChart('ch4');charts['ch4']=new Chart(document.getElementById('ch4'),{type:'bar',data:{labels,datasets:[{label:'Perdida cambiaria Q',data:fxD,backgroundColor:'rgba(226,75,74,0.6)',borderRadius:3}]},options:{...gOpts}});
+  destroyChart('ch3');charts['ch3']=new Chart(document.getElementById('ch3'),{type:'line',data:{labels,datasets:[{label:'Flujo neto',data:netD,borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.07)',tension:0.4,fill:true,pointBackgroundColor:netD.map(v=>v>=0?'#1D9E75':'#E24B4A'),pointRadius:4,borderWidth:1.5}]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{x:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},y:{ticks:{color:'#4a6080',font:{size:9},callback:function(v){return 'Q'+Math.round(v).toString()}},grid:{color:'rgba(55,138,221,0.05)'}}}}});
+  destroyChart('ch4');charts['ch4']=new Chart(document.getElementById('ch4'),{type:'bar',data:{labels,datasets:[{label:'Perdida cambiaria Q',data:fxD,backgroundColor:'rgba(226,75,74,0.6)',borderRadius:3}]},options:{responsive:true,plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{x:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},y:{ticks:{color:'#4a6080',font:{size:9},callback:function(v){return 'Q'+Math.round(v).toString()}},grid:{color:'rgba(55,138,221,0.05)'}}}}});
   const accLabels=accounts.map(a=>a.name.length>12?a.name.slice(0,12)+'...':a.name);
   const accVals=accounts.map(a=>a.currency==='USD'?parseFloat((a.balance*TC).toFixed(2)):parseFloat(a.balance.toFixed(2)));
-  destroyChart('ch5');if(accounts.length){charts['ch5']=new Chart(document.getElementById('ch5'),{type:'bar',data:{labels:accLabels,datasets:[{label:'Balance GTQ',data:accVals,backgroundColor:accVals.map(v=>v>=0?'rgba(55,138,221,0.6)':'rgba(226,75,74,0.6)'),borderRadius:3}]},options:{...gOpts,indexAxis:'y',scales:{y:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},x:{ticks:{color:'#4a6080',font:{size:9},callback:v=>'Q'+v.toLocaleString()},grid:{color:'rgba(55,138,221,0.05)'}}}}}});}
+  destroyChart('ch5');if(accounts.length){charts['ch5']=new Chart(document.getElementById('ch5'),{type:'bar',data:{labels:accLabels,datasets:[{label:'Balance GTQ',data:accVals,backgroundColor:accVals.map(v=>v>=0?'rgba(55,138,221,0.6)':'rgba(226,75,74,0.6)'),borderRadius:3}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{y:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},x:{ticks:{color:'#4a6080',font:{size:9},callback:function(v){return 'Q'+Math.round(v).toString()}},grid:{color:'rgba(55,138,221,0.05)'}}}}});}
 }
 
 //  NAVIGATION 
