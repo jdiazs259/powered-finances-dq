@@ -1,1 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PFDQ">
+<meta name="theme-color" content="#080c12">
+<title>Powered Finances DQ</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --b9:#042C53;--b8:#0C447C;--b7:#185FA5;--b5:#378ADD;--b2:#85B7EB;
+  --blk:#080c12;--dk:#0f1520;--dk2:#161e2e;--dk3:#1c2640;
+  --brd:rgba(55,138,221,0.15);--brd2:rgba(55,138,221,0.25);
+  --tx:#eef2ff;--mt:#7a94b8;--mt2:#3a5070;
+  --grn:#1D9E75;--amb:#EF9F27;--red:#E24B4A;--pur:#7F77DD;
+}
+html,body{margin:0;padding:0;background:var(--blk)}
+body{font-family:'Inter',-apple-system,sans-serif;font-size:14px;color:var(--tx)}
+.app{display:flex;flex-direction:column;min-height:100vh;max-width:600px;margin:0 auto;background:var(--blk);box-shadow:0 0 60px rgba(0,0,0,0.5)}
+.topbar{background:var(--dk);padding:12px 16px 0;border-bottom:0.5px solid var(--brd);position:sticky;top:0;z-index:100}
+.content{flex:1;padding-bottom:40px}
 
+/* LOGIN SCREEN */
+.login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 24px;background:var(--blk)}
+.login-logo{margin-bottom:32px;text-align:center}
+.login-title{font-size:20px;font-weight:500;color:var(--tx);margin-bottom:6px}
+.login-sub{font-size:13px;color:var(--mt);margin-bottom:40px;text-align:center;line-height:1.6}
+.btn-google{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;max-width:320px;background:#fff;border:none;border-radius:12px;padding:14px 20px;font-size:14px;font-weight:500;color:#1f2937;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.btn-google:hover{background:#f3f4f6;transform:translateY(-1px)}
+.btn-google svg{flex-shrink:0}
+.login-note{font-size:11px;color:var(--mt2);margin-top:20px;text-align:center;line-height:1.6;max-width:280px}
+
+/* BRAND */
+.brand{display:flex;align-items:center;gap:10px;padding:10px 0}
+.brand-text .name{font-size:13px;font-weight:500;color:var(--tx)}
+.brand-text .sub{font-size:9px;color:var(--mt);letter-spacing:0.5px}
+.tc-pill{background:var(--dk2);border:0.5px solid var(--brd2);border-radius:8px;padding:5px 10px;font-size:10px;color:var(--mt);cursor:pointer;white-space:nowrap}
+.tc-pill span{color:var(--amb);font-weight:500}
+.user-pill{margin-left:auto;display:flex;align-items:center;gap:8px}
+.user-avatar{width:28px;height:28px;border-radius:50%;border:1px solid var(--brd2)}
+.sign-out-btn{background:none;border:0.5px solid var(--brd2);color:var(--mt);border-radius:6px;padding:3px 8px;font-size:10px;cursor:pointer;font-family:inherit}
+.sign-out-btn:hover{color:var(--red);border-color:rgba(226,75,74,0.3)}
+
+/* MONTH NAV */
+.month-nav{display:flex;align-items:center;gap:6px;padding-bottom:10px}
+.mnbtn{background:none;border:0.5px solid var(--brd2);color:var(--mt);border-radius:6px;padding:4px 10px;font-size:13px;cursor:pointer;font-family:inherit}
+.mnbtn:hover{background:var(--dk2);color:var(--tx)}
+.mnlabel{flex:1;text-align:center;font-size:12px;font-weight:500;color:var(--tx)}
+
+/* TABS */
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;padding-bottom:1px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:9px 12px;font-size:10px;font-weight:500;color:var(--mt);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;letter-spacing:0.7px;text-transform:uppercase;white-space:nowrap}
+.tab.active{color:var(--b2);border-bottom-color:var(--b5)}
+.tab:hover{color:var(--tx)}
+
+/* SCREENS */
+.screen{display:none;padding:16px}
+.screen.active{display:block}
+
+/* HERO */
+.hero{background:var(--b8);border-radius:14px;padding:18px 20px;margin-bottom:12px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-25px;right:-25px;width:100px;height:100px;border-radius:50%;background:rgba(55,138,221,0.12)}
+.hl{font-size:9px;font-weight:500;color:rgba(180,215,255,0.5);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.ha{font-size:28px;font-weight:300;color:#fff;letter-spacing:-0.5px;position:relative;z-index:1}
+.ha sup{font-size:14px;opacity:0.6}
+.hs{font-size:10px;color:rgba(180,215,255,0.4);margin-top:3px}
+
+/* METRIC CARDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px}
+.mc{background:var(--dk2);border-radius:10px;padding:10px 12px;border:0.5px solid var(--brd)}
+.ml{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.mv{font-size:15px;font-weight:500;color:var(--tx)}
+.mv.g{color:var(--grn)}.mv.r{color:var(--red)}.mv.a{color:var(--amb)}.mv.p{color:var(--pur)}.mv.b{color:var(--b2)}
+
+.stitle{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:1.2px;margin:14px 0 8px}
+.stitle:first-child{margin-top:0}
+
+/* LIST ITEMS */
+.item{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:0.5px solid rgba(55,138,221,0.07)}
+.item:last-child{border-bottom:none}
+.iico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.iinfo{flex:1;min-width:0}
+.iname{font-size:13px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.isub{font-size:10px;color:var(--mt);margin-top:1px}
+.iamt{font-size:13px;font-weight:500;flex-shrink:0}
+.iamt.r{color:var(--red)}.iamt.g{color:var(--grn)}.iamt.a{color:var(--amb)}.iamt.b{color:var(--b2)}
+
+/* BADGES */
+.badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:500}
+.br{background:rgba(226,75,74,0.15);color:#f87171}
+.bg{background:rgba(29,158,117,0.15);color:#34d399}
+.ba{background:rgba(239,159,39,0.12);color:#fbbf24}
+.bb{background:rgba(55,138,221,0.15);color:var(--b2)}
+
+/* ALERTS */
+.alert-r{background:rgba(226,75,74,0.08);border:0.5px solid rgba(226,75,74,0.18);border-radius:9px;padding:9px 12px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.alert-a{background:rgba(239,159,39,0.07);border:0.5px solid rgba(239,159,39,0.18);border-radius:9px;padding:9px 12px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.alert-g{background:rgba(29,158,117,0.07);border:0.5px solid rgba(29,158,117,0.15);border-radius:9px;padding:9px 12px;font-size:11px;color:#34d399;margin-bottom:8px}
+.dot-r{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;animation:pulse 1.5s infinite}
+.dot-a{width:7px;height:7px;border-radius:50%;background:var(--amb);flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
+.atext{font-size:11px;color:#f87171}
+.atext-a{font-size:11px;color:#fbbf24}
+
+/* FORMS */
+.fg{margin-bottom:11px}
+.fl{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;display:block}
+.fi{width:100%;background:var(--dk2);border:0.5px solid var(--brd);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--tx);font-family:inherit;outline:none}
+.fi:focus{border-color:var(--b5)}
+.fi option{background:#1c2640}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{width:100%;background:var(--b7);border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:500;color:#fff;cursor:pointer;font-family:inherit;margin-top:4px}
+.btn:hover{background:var(--b5)}
+.btn-outline{background:var(--dk2);border:0.5px solid var(--brd2);color:var(--tx)}
+.msg{text-align:center;margin-top:7px;font-size:11px;color:var(--grn);min-height:15px}
+.msg.e{color:var(--red)}
+hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
+.form-section{background:rgba(55,138,221,0.04);border:0.5px solid var(--brd);border-radius:12px;padding:14px;margin-top:8px}
+
+/* CHARTS */
+.chart-wrap{background:var(--dk2);border-radius:12px;padding:14px;border:0.5px solid var(--brd);margin-bottom:12px}
+.ct{font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+
+/* ACCOUNTS */
+.acc-card{background:var(--dk2);border-radius:13px;padding:15px;border:0.5px solid var(--brd);margin-bottom:10px;position:relative;overflow:hidden}
+.acc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;border-radius:13px 13px 0 0}
+.acc-gtq::before{background:var(--b5)}.acc-usd::before{background:var(--grn)}.acc-cc::before{background:var(--red)}.acc-inv::before{background:var(--pur)}
+.acc-bal{font-size:24px;font-weight:300;letter-spacing:-0.5px;margin:10px 0 5px}
+.acc-bal.neg{color:var(--red)}
+.ltrack{background:rgba(255,255,255,0.07);border-radius:3px;height:4px;margin:8px 0 5px}
+.lfill{height:4px;border-radius:3px}
+.lr{display:flex;justify-content:space-between;font-size:10px;color:var(--mt)}
+.lr strong{color:var(--tx)}
+.acc-actions{display:flex;gap:6px;margin-top:11px}
+.acc-btn{flex:1;background:rgba(55,138,221,0.08);border:0.5px solid var(--brd2);color:var(--b2);border-radius:7px;padding:7px 4px;font-size:11px;cursor:pointer;font-family:inherit;text-align:center}
+.acc-btn:hover{background:rgba(55,138,221,0.18)}
+.acc-btn.red{background:rgba(226,75,74,0.08);border-color:rgba(226,75,74,0.2);color:#f87171}
+.dbtn{background:rgba(226,75,74,0.1);border:0.5px solid rgba(226,75,74,0.2);color:#f87171;border-radius:5px;padding:3px 8px;font-size:10px;cursor:pointer;font-family:inherit}
+.paybtn{background:rgba(29,158,117,0.12);border:0.5px solid rgba(29,158,117,0.25);color:#34d399;border-radius:5px;padding:3px 9px;font-size:10px;cursor:pointer;font-family:inherit}
+
+/* FX */
+.fx-result{background:var(--dk3);border-radius:10px;padding:14px;margin:10px 0;text-align:center}
+.fx-big{font-size:24px;font-weight:300;letter-spacing:-0.3px}
+.fx-loss{font-size:13px;font-weight:500;margin-top:5px}
+
+/* CF */
+.cf-card{background:var(--dk2);border-radius:11px;padding:13px;border:0.5px solid var(--brd);margin-bottom:9px}
+.cf-bar{height:4px;border-radius:3px;background:rgba(255,255,255,0.06);margin-top:8px;overflow:hidden;display:flex}
+.cf-in{background:var(--grn)}.cf-out{background:var(--red)}
+
+/* UPLOAD */
+.upload-zone{border:1px dashed var(--brd2);border-radius:11px;padding:22px;text-align:center;cursor:pointer;margin-bottom:10px}
+.upload-zone:hover{border-color:var(--b5)}
+.upload-zone input{display:none}
+
+/* SYNC INDICATOR */
+.sync-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--mt);padding:3px 8px;border-radius:20px;background:var(--dk2);border:0.5px solid var(--brd)}
+.sync-dot{width:5px;height:5px;border-radius:50%;background:var(--grn)}
+.sync-dot.syncing{background:var(--amb);animation:pulse 1s infinite}
+.sync-dot.error{background:var(--red)}
+
+.empty{text-align:center;padding:24px;color:var(--mt);font-size:12px}
+.saved-badge{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(29,158,117,0.9);color:#fff;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:500;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:999}
+.saved-badge.show{opacity:1}
+.loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px}
+.spinner{width:32px;height:32px;border:2px solid var(--brd2);border-top-color:var(--b5);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(min-width:600px){body{background:#050810}.app{border-left:0.5px solid var(--brd);border-right:0.5px solid var(--brd)}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen" class="login-screen" style="display:none">
+  <div class="login-logo">
+    <svg width="120" height="46" viewBox="0 0 128 48" fill="none">
+      <path d="M4,38 L4,10 L16,10 Q26,10 26,22 Q26,34 16,34 L4,34" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M34,10 L34,38 M34,24 L46,24 M46,10 L46,38" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M56,10 L56,38 L70,38 Q82,38 82,24 Q82,10 70,10 Z" stroke="#378ADD" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M92,10 L92,38 M92,10 L106,38 M120,10 L120,38 M92,38 L120,38" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <circle cx="106" cy="10" r="3.5" fill="#E24B4A"/>
+    </svg>
+  </div>
+  <div class="login-title">Powered Finances DQ</div>
+  <div class="login-sub">Tu sistema financiero personal.<br>Inicia sesión para continuar.</div>
+  <button class="btn-google" onclick="signInGoogle()">
+    <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.7 33.2 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-9 20-20 0-1.3-.2-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.7-2.8-11.3-7L6 33.5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.5l6.2 5.2C41 35.2 44 30 44 24c0-1.3-.2-2.7-.4-4z"/></svg>
+    Continuar con Google
+  </button>
+  <div class="login-note">Solo tú puedes acceder. Tus datos se guardan de forma segura en la nube de Google.</div>
+</div>
+
+<!-- LOADING -->
+<div id="loading-screen" class="loading-screen">
+  <div class="spinner"></div>
+  <div style="font-size:12px;color:var(--mt)">Cargando...</div>
+</div>
+
+<!-- APP -->
+<div class="app" id="main-app" style="display:none">
+  <div class="topbar">
+    <div class="brand">
+      <svg width="52" height="22" viewBox="0 0 128 48" fill="none">
+        <path d="M4,38 L4,10 L16,10 Q26,10 26,22 Q26,34 16,34 L4,34" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M34,10 L34,38 M34,24 L46,24 M46,10 L46,38" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M56,10 L56,38 L70,38 Q82,38 82,24 Q82,10 70,10 Z" stroke="#378ADD" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M92,10 L92,38 M92,10 L106,38 M120,10 L120,38 M92,38 L120,38" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <circle cx="106" cy="10" r="3.5" fill="#E24B4A"/>
+      </svg>
+      <div class="brand-text">
+        <div class="name">Powered Finances DQ</div>
+        <div class="sub" id="sync-status">Sincronizando...</div>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <div class="tc-pill" onclick="fetchTC()">TC: <span id="tc-val">...</span></div>
+        <img id="user-avatar" class="user-avatar" src="" style="display:none">
+        <button class="sign-out-btn" onclick="signOut()">Salir</button>
+      </div>
+    </div>
+    <div class="month-nav">
+      <button class="mnbtn" onclick="changeMonth(-1)">‹</button>
+      <div class="mnlabel" id="month-label">Cargando...</div>
+      <button class="mnbtn" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('dash',this)">Inicio</div>
+      <div class="tab" onclick="showTab('accounts',this)">Cuentas</div>
+      <div class="tab" onclick="showTab('fx',this)">Divisas</div>
+      <div class="tab" onclick="showTab('charts',this)">Gráficas</div>
+      <div class="tab" onclick="showTab('cashflow',this)">Cashflow</div>
+      <div class="tab" onclick="showTab('loans',this)">Préstamos</div>
+      <div class="tab" onclick="showTab('commits',this)">Compromisos</div>
+      <div class="tab" onclick="showTab('pending',this)">Pendientes</div>
+      <div class="tab" onclick="showTab('add',this)">+ Nuevo</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- DASHBOARD -->
+    <div class="screen active" id="s-dash">
+      <div class="hero">
+        <div class="hl">Flujo neto del mes</div>
+        <div class="ha" id="d-net"><sup>Q</sup>0</div>
+        <div class="hs" id="d-sub">—</div>
+      </div>
+      <div class="g3">
+        <div class="mc"><div class="ml">Ingresos</div><div class="mv g" id="d-inc">Q0</div></div>
+        <div class="mc"><div class="ml">Egresos</div><div class="mv r" id="d-exp">Q0</div></div>
+        <div class="mc"><div class="ml">En USD</div><div class="mv b" id="d-usd">$0</div></div>
+      </div>
+      <div class="g3">
+        <div class="mc"><div class="ml">Préstamos</div><div class="mv a" id="d-lp">Q0</div></div>
+        <div class="mc"><div class="ml">Compromisos</div><div class="mv p" id="d-cp">Q0</div></div>
+        <div class="mc"><div class="ml">Pérd. FX</div><div class="mv r" id="d-fx">Q0</div></div>
+      </div>
+      <div class="stitle">Resumen de cuentas</div>
+      <div id="d-accsummary"></div>
+      <div class="stitle">Alertas</div>
+      <div id="d-alerts"></div>
+      <div class="stitle">Últimos movimientos</div>
+      <div id="d-recent"></div>
+    </div>
+
+    <!-- CUENTAS -->
+    <div class="screen" id="s-accounts">
+      <div id="acc-list"></div>
+      <div class="form-section">
+        <div class="stitle" style="margin-top:0">Nueva cuenta</div>
+        <div class="fg"><label class="fl">Nombre</label><input class="fi" id="ac-name" placeholder="Ej. Cuenta Monetaria BAM"></div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Tipo</label>
+            <select class="fi" id="ac-type">
+              <option value="bank-gtq">Banco GTQ</option><option value="bank-usd">Banco USD</option>
+              <option value="cash-gtq">Efectivo GTQ</option><option value="cash-usd">Efectivo USD</option>
+              <option value="cc">Tarjeta crédito</option><option value="investment">Inversión</option>
+            </select>
+          </div>
+          <div class="fg"><label class="fl">Moneda</label>
+            <select class="fi" id="ac-currency"><option value="GTQ">GTQ (Q)</option><option value="USD">USD ($)</option></select>
+          </div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Saldo inicial</label><input class="fi" type="number" id="ac-balance" placeholder="0.00" step="0.01"></div>
+          <div class="fg"><label class="fl">Límite (tarjeta)</label><input class="fi" type="number" id="ac-limit" placeholder="0"></div>
+        </div>
+        <div class="fg"><label class="fl">Emoji</label><input class="fi" id="ac-icon" placeholder="🏦" maxlength="4" style="font-size:20px;text-align:center"></div>
+        <button class="btn" onclick="addAccount()">Crear cuenta</button>
+        <div class="msg" id="ac-msg"></div>
+      </div>
+      <hr>
+      <div class="stitle" style="margin-top:0">Cargar estado de cuenta (CSV)</div>
+      <div class="fg"><label class="fl">Cuenta destino</label><select class="fi" id="cc-target-acc"></select></div>
+      <div class="upload-zone" onclick="document.getElementById('csv-upload').click()">
+        <input type="file" id="csv-upload" accept=".csv,.txt" onchange="handleCSV(event)">
+        <div style="font-size:28px;margin-bottom:8px">📄</div>
+        <div style="font-size:13px;color:var(--tx);font-weight:500;margin-bottom:4px">Toca para cargar CSV</div>
+        <div style="font-size:10px;color:var(--mt)">Columnas: fecha, descripción, monto</div>
+      </div>
+      <div id="csv-preview"></div>
+    </div>
+
+    <!-- DIVISAS -->
+    <div class="screen" id="s-fx">
+      <div class="hero">
+        <div class="hl">Tipo de cambio — Banco de Guatemala</div>
+        <div class="ha"><sup>Q</sup><span id="fx-tc-val">7.7500</span></div>
+        <div class="hs" id="fx-tc-date">Toca TC para actualizar</div>
+      </div>
+      <div class="g2">
+        <div class="mc"><div class="ml">Pérdida total mes</div><div class="mv r" id="fx-loss-m">Q0.00</div></div>
+        <div class="mc"><div class="ml">Operaciones mes</div><div class="mv b" id="fx-ops-m">0</div></div>
+      </div>
+      <div class="stitle">Calcular operación</div>
+      <div class="form-section">
+        <div class="fg"><label class="fl">Tipo de operación</label>
+          <select class="fi" id="fx-op">
+            <option value="sell">Vendo USD → recibo GTQ</option>
+            <option value="buy">Compro USD → pago GTQ</option>
+          </select>
+        </div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Monto USD</label><input class="fi" type="number" id="fx-usd" placeholder="100.00" step="0.01" oninput="calcFX()"></div>
+          <div class="fg"><label class="fl">TC que me dieron</label><input class="fi" type="number" id="fx-tc-given" placeholder="7.68" step="0.0001" oninput="calcFX()"></div>
+        </div>
+        <div class="fg"><label class="fl">TC Banguat referencia</label><input class="fi" id="fx-tc-ref" style="color:var(--amb)" readonly></div>
+        <div class="fx-result" id="fx-result" style="display:none">
+          <div class="fx-big" id="fx-got">Q0.00</div>
+          <div style="font-size:10px;color:var(--mt);margin-top:3px" id="fx-got-lbl">—</div>
+          <div class="fx-loss" id="fx-loss-lbl">—</div>
+          <div style="font-size:10px;color:var(--mt);margin-top:4px" id="fx-diff-det">—</div>
+        </div>
+        <button class="btn" onclick="registerFX()">Registrar operación</button>
+        <div class="msg" id="fx-msg"></div>
+      </div>
+      <div class="stitle">Historial del mes</div>
+      <div id="fx-history"></div>
+    </div>
+
+    <!-- GRÁFICAS -->
+    <div class="screen" id="s-charts">
+      <div class="chart-wrap"><div class="ct">Ingresos vs egresos — 6 meses</div><canvas id="ch1" height="150"></canvas></div>
+      <div class="chart-wrap"><div class="ct">Egresos por categoría</div><canvas id="ch2" height="160"></canvas></div>
+      <div class="chart-wrap"><div class="ct">Flujo neto mensual</div><canvas id="ch3" height="130"></canvas></div>
+      <div class="chart-wrap"><div class="ct">Pérdida cambiaria</div><canvas id="ch4" height="120"></canvas></div>
+      <div class="chart-wrap"><div class="ct">Balance de cuentas</div><canvas id="ch5" height="140"></canvas></div>
+    </div>
+
+    <!-- CASHFLOW -->
+    <div class="screen" id="s-cashflow">
+      <div class="hero">
+        <div class="hl">Acumulado proyectado — 6 meses</div>
+        <div class="ha"><sup>Q</sup><span id="cf-total">0</span></div>
+        <div class="hs" id="cf-sub">—</div>
+      </div>
+      <div id="cf-months"></div>
+    </div>
+
+    <!-- PRÉSTAMOS -->
+    <div class="screen" id="s-loans">
+      <div id="loans-list"></div>
+      <div class="form-section">
+        <div class="stitle" style="margin-top:0">Registrar préstamo</div>
+        <div class="fg"><label class="fl">Nombre / Entidad</label><input class="fi" id="l-name" placeholder="Banco Industrial"></div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Monto original</label><input class="fi" type="number" id="l-total" placeholder="50000"></div>
+          <div class="fg"><label class="fl">Saldo pendiente</label><input class="fi" type="number" id="l-bal" placeholder="35000"></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Tasa anual %</label><input class="fi" type="number" id="l-rate" placeholder="12.5" step="0.1"></div>
+          <div class="fg"><label class="fl">Cuota mensual</label><input class="fi" type="number" id="l-pay" placeholder="1200"></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Día de pago</label><input class="fi" type="number" id="l-day" placeholder="5" min="1" max="31"></div>
+          <div class="fg"><label class="fl">Vencimiento</label><input class="fi" type="date" id="l-due"></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Moneda</label><select class="fi" id="l-currency"><option value="GTQ">GTQ</option><option value="USD">USD</option></select></div>
+          <div class="fg"><label class="fl">Emoji</label><input class="fi" id="l-icon" placeholder="🏦" maxlength="4" style="font-size:18px;text-align:center"></div>
+        </div>
+        <button class="btn" onclick="addLoan()">Agregar préstamo</button>
+        <div class="msg" id="l-msg"></div>
+      </div>
+    </div>
+
+    <!-- COMPROMISOS -->
+    <div class="screen" id="s-commits">
+      <div id="commits-list"></div>
+      <div class="form-section">
+        <div class="stitle" style="margin-top:0">Nuevo compromiso</div>
+        <div class="fg"><label class="fl">Nombre</label><input class="fi" id="c-name" placeholder="Diezmo, Seguro, Netflix..."></div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Monto</label><input class="fi" type="number" id="c-amt" placeholder="500"></div>
+          <div class="fg"><label class="fl">Moneda</label><select class="fi" id="c-cur"><option value="GTQ">GTQ</option><option value="USD">USD</option></select></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label class="fl">Frecuencia</label>
+            <select class="fi" id="c-freq">
+              <option value="monthly">Mensual</option><option value="weekly">Semanal</option>
+              <option value="biweekly">Quincenal</option><option value="yearly">Anual</option>
+            </select>
+          </div>
+          <div class="fg"><label class="fl">Día de pago</label><input class="fi" type="number" id="c-day" placeholder="1" min="1" max="31"></div>
+        </div>
+        <div class="fg"><label class="fl">Emoji</label><input class="fi" id="c-icon" placeholder="⛪" maxlength="4" style="font-size:18px;text-align:center"></div>
+        <button class="btn" onclick="addCommit()">Agregar</button>
+        <div class="msg" id="c-msg"></div>
+      </div>
+    </div>
+
+    <!-- PENDIENTES -->
+    <div class="screen" id="s-pending"><div style="padding:4px 0" id="pending-list"></div></div>
+
+    <!-- NUEVO MOVIMIENTO -->
+    <div class="screen" id="s-add">
+      <div class="stitle" style="margin-top:0">Registrar movimiento</div>
+      <div class="fg"><label class="fl">Descripción</label><input class="fi" id="a-desc" placeholder="Ej. Almuerzo zona 10"></div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Monto</label><input class="fi" type="number" id="a-amt" placeholder="0.00" step="0.01"></div>
+        <div class="fg"><label class="fl">Moneda</label><select class="fi" id="a-cur"><option value="GTQ">GTQ (Q)</option><option value="USD">USD ($)</option></select></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Tipo</label><select class="fi" id="a-type"><option value="income">Ingreso</option><option value="expense">Gasto</option></select></div>
+        <div class="fg"><label class="fl">Categoría</label>
+          <select class="fi" id="a-cat">
+            <option value="general">General</option><option value="food">Alimentación</option>
+            <option value="transport">Transporte</option><option value="entertainment">Entretenimiento</option>
+            <option value="health">Salud</option><option value="clothing">Ropa</option>
+            <option value="tithe">Diezmo</option><option value="loan">Préstamo</option>
+            <option value="fx">Divisas</option><option value="cc">Tarjeta</option>
+            <option value="utilities">Servicios</option><option value="education">Educación</option>
+          </select>
+        </div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Cuenta</label><select class="fi" id="a-acc"></select></div>
+        <div class="fg"><label class="fl">Fecha</label><input class="fi" type="date" id="a-date"></div>
+      </div>
+      <div class="fg"><label class="fl">Nota (opcional)</label><input class="fi" id="a-note" placeholder="Referencia, factura..."></div>
+      <button class="btn" onclick="addTx()">Registrar</button>
+      <div class="msg" id="a-msg"></div>
+      <hr>
+      <div class="stitle">Movimientos del mes</div>
+      <div id="tx-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="saved-badge" id="saved-badge">Guardado en la nube ✓</div>
+
+<!-- FIREBASE SDK -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, onSnapshot, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBkSR1N0d2ofsULI6P2zIWtyknkehkceG4",
+  authDomain: "powered-finances-dq.firebaseapp.com",
+  projectId: "powered-finances-dq",
+  storageBucket: "powered-finances-dq.firebasestorage.app",
+  messagingSenderId: "636684883878",
+  appId: "1:636684883878:web:76fd8684cc1b95d1a1e167"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ─── STATE ────────────────────────────────────────────────────
+let currentUser = null;
+let cm = new Date().getMonth()+1;
+let cy = new Date().getFullYear();
+let TC = 7.75;
+let nid = Date.now();
+let accounts=[], loans=[], commits=[], allTx=[], fxOps=[];
+let charts={};
+let unsubscribers=[];
+
+// ─── CONSTANTS ────────────────────────────────────────────────
+const MONTHS=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const MS=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const CI={general:'💼',food:'🍔',transport:'🚗',entertainment:'🎬',health:'❤️',clothing:'👔',tithe:'⛪',loan:'🏦',fx:'💱',cc:'💳',utilities:'💡',education:'📚'};
+const CN={general:'General',food:'Alimentación',transport:'Transporte',entertainment:'Entretenimiento',health:'Salud',clothing:'Ropa',tithe:'Diezmo',loan:'Préstamo',fx:'Divisas',cc:'Tarjeta',utilities:'Servicios',education:'Educación'};
+const CC_COLORS={general:'#7a94b8',food:'#EF9F27',transport:'#378ADD',entertainment:'#7F77DD',health:'#E24B4A',clothing:'#1D9E75',tithe:'#85B7EB',loan:'#fbbf24',fx:'#34d399',cc:'#f87171',utilities:'#60a5fa',education:'#a78bfa'};
+const ACC_TYPE_LABEL={'bank-gtq':'Banco GTQ','bank-usd':'Banco USD','cash-gtq':'Efectivo GTQ','cash-usd':'Efectivo USD','cc':'Tarjeta de crédito','investment':'Inversión'};
+
+// ─── AUTH ─────────────────────────────────────────────────────
+window.signInGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  } catch(e) { console.error(e); alert('Error al iniciar sesión: '+e.message); }
+};
+
+window.signOut = async () => {
+  if(confirm('¿Cerrar sesión?')) {
+    unsubscribers.forEach(u=>u());
+    await fbSignOut(auth);
+  }
+};
+
+onAuthStateChanged(auth, async (user) => {
+  if(user) {
+    currentUser = user;
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('loading-screen').style.display='flex';
+    document.getElementById('main-app').style.display='none';
+    const av = document.getElementById('user-avatar');
+    if(user.photoURL){ av.src=user.photoURL; av.style.display='block'; }
+    await loadAllData();
+    document.getElementById('loading-screen').style.display='none';
+    document.getElementById('main-app').style.display='flex';
+    document.getElementById('month-label').textContent=MONTHS[cm-1]+' '+cy;
+    document.getElementById('a-date').value=new Date().toISOString().slice(0,10);
+    document.getElementById('sync-status').textContent='Conectado · '+user.displayName;
+    renderAll();
+    fetchTC();
+  } else {
+    currentUser = null;
+    document.getElementById('loading-screen').style.display='none';
+    document.getElementById('login-screen').style.display='flex';
+    document.getElementById('main-app').style.display='none';
+  }
+});
+
+// ─── FIRESTORE HELPERS ────────────────────────────────────────
+function userCol(colName) {
+  return collection(db, 'users', currentUser.uid, colName);
+}
+function userDoc(colName, docId) {
+  return doc(db, 'users', currentUser.uid, colName, String(docId));
+}
+
+async function saveDoc(colName, data) {
+  try {
+    await setDoc(userDoc(colName, data.id), data);
+    showSavedBadge();
+  } catch(e) { console.error('Save error:', e); }
+}
+
+async function deleteDocument(colName, id) {
+  try { await deleteDoc(userDoc(colName, String(id))); } 
+  catch(e) { console.error('Delete error:', e); }
+}
+
+async function loadAllData() {
+  try {
+    const [accSnap, loanSnap, commitSnap, txSnap, fxSnap, settingsSnap] = await Promise.all([
+      getDocs(userCol('accounts')),
+      getDocs(userCol('loans')),
+      getDocs(userCol('commits')),
+      getDocs(userCol('transactions')),
+      getDocs(userCol('fxOps')),
+      getDoc(userDoc('settings','main'))
+    ]);
+    accounts = accSnap.docs.map(d=>d.data());
+    loans = loanSnap.docs.map(d=>d.data());
+    commits = commitSnap.docs.map(d=>d.data());
+    allTx = txSnap.docs.map(d=>d.data());
+    fxOps = fxSnap.docs.map(d=>d.data());
+    if(settingsSnap.exists()) {
+      const s = settingsSnap.data();
+      cm = s.cm || cm; cy = s.cy || cy; TC = s.TC || TC;
+    }
+  } catch(e) { console.error('Load error:', e); }
+}
+
+async function saveSettings() {
+  try { await setDoc(userDoc('settings','main'), {cm,cy,TC}); } 
+  catch(e) { console.error(e); }
+}
+
+// ─── TC BANGUAT ───────────────────────────────────────────────
+window.fetchTC = async () => {
+  document.getElementById('tc-val').textContent='...';
+  try {
+    const r = await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://banguat.gob.gt/api/v1/variables/tipo_cambio_referencia_venta'), {signal:AbortSignal.timeout(5000)});
+    if(r.ok){ const t=await r.text(); const m=t.match(/(\d+\.\d{4,})/); if(m) TC=parseFloat(m[1]); }
+  } catch(e) {}
+  document.getElementById('tc-val').textContent='Q'+TC.toFixed(4);
+  document.getElementById('fx-tc-val').textContent=TC.toFixed(4);
+  document.getElementById('fx-tc-ref').value=TC.toFixed(4);
+  document.getElementById('fx-tc-date').textContent='Banco de Guatemala · '+new Date().toLocaleDateString('es-GT');
+  saveSettings();
+  renderAll();
+};
+
+// ─── HELPERS ─────────────────────────────────────────────────
+function fmt(n,cur){const s=cur==='USD'?'$':'Q';return s+parseFloat(Math.abs(n)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fmtQ(n){return 'Q'+Math.round(n).toLocaleString('es-GT')}
+function toGTQ(amount,currency){return currency==='USD'?amount*TC:amount}
+function mkStr(m,y){return y+'-'+m}
+function getTx(m,y){return allTx.filter(t=>t.month===m&&t.year===y)}
+function getInc(m,y){return getTx(m,y).filter(t=>t.type==='income').reduce((s,t)=>s+toGTQ(t.amount,t.currency||'GTQ'),0)}
+function getExp(m,y){return getTx(m,y).filter(t=>t.type==='expense').reduce((s,t)=>s+toGTQ(t.amount,t.currency||'GTQ'),0)}
+function getUSDNet(m,y){
+  const i=getTx(m,y).filter(t=>t.type==='income'&&t.currency==='USD').reduce((s,t)=>s+t.amount,0);
+  const e=getTx(m,y).filter(t=>t.type==='expense'&&t.currency==='USD').reduce((s,t)=>s+t.amount,0);
+  return i-e;
+}
+function getLoanTotal(){return loans.reduce((s,l)=>s+toGTQ(l.payment,l.currency||'GTQ'),0)}
+function getCommitTotal(){return commits.filter(c=>c.freq==='monthly').reduce((s,c)=>s+toGTQ(c.amount,c.currency||'GTQ'),0)}
+function isPaid(c,m,y){return (c.paidMonths||[]).includes(mkStr(m,y))}
+function getUnpaid(m,y){return commits.filter(c=>!isPaid(c,m,y))}
+function getFXLoss(m,y){return fxOps.filter(f=>f.month===m&&f.year===y).reduce((s,f)=>s+(f.loss||0),0)}
+function daysUntil(ds){if(!ds)return 9999;return Math.ceil((new Date(ds)-new Date())/864e5)}
+function showMsg(id,text,type){const el=document.getElementById(id);if(!el)return;el.className='msg'+(type==='e'?' e':'');el.textContent=text;setTimeout(()=>el.textContent='',2500)}
+function showSavedBadge(){const b=document.getElementById('saved-badge');b.classList.add('show');setTimeout(()=>b.classList.remove('show'),1800)}
+function newId(){return Date.now()+'_'+Math.random().toString(36).slice(2,7)}
+
+// ─── RENDER DASHBOARD ─────────────────────────────────────────
+function renderDash(){
+  const m=cm,y=cy;
+  const inc=getInc(m,y),exp=getExp(m,y);
+  const lp=getLoanTotal(),cp=getCommitTotal(),fxl=getFXLoss(m,y);
+  const net=inc-exp-lp-cp-fxl;
+  const usdNet=getUSDNet(m,y);
+  const el=document.getElementById('d-net');
+  el.innerHTML='<sup>Q</sup>'+Math.abs(Math.round(net)).toLocaleString('es-GT');
+  el.style.color=net>=0?'#fff':'#f87171';
+  document.getElementById('d-sub').textContent=net>=0?'Flujo positivo este mes':'Flujo negativo — revisar gastos';
+  document.getElementById('d-inc').textContent=fmtQ(inc);
+  document.getElementById('d-exp').textContent=fmtQ(exp);
+  document.getElementById('d-usd').textContent=(usdNet>=0?'+':'')+usdNet.toFixed(0)+' USD';
+  document.getElementById('d-lp').textContent=fmtQ(lp)+'/mes';
+  document.getElementById('d-cp').textContent=fmtQ(cp)+'/mes';
+  document.getElementById('d-fx').textContent=fmtQ(fxl);
+  const totalGTQ=accounts.filter(a=>a.currency==='GTQ').reduce((s,a)=>s+a.balance,0);
+  const totalUSD=accounts.filter(a=>a.currency==='USD').reduce((s,a)=>s+a.balance,0);
+  document.getElementById('d-accsummary').innerHTML=`<div class="g3" style="margin-bottom:0">
+    <div class="mc"><div class="ml">Total GTQ</div><div class="mv ${totalGTQ>=0?'g':'r'}">${fmtQ(totalGTQ)}</div></div>
+    <div class="mc"><div class="ml">Total USD</div><div class="mv ${totalUSD>=0?'b':'r'}">$${totalUSD.toFixed(0)}</div></div>
+    <div class="mc"><div class="ml">Equiv. total</div><div class="mv g">${fmtQ(totalGTQ+totalUSD*TC)}</div></div>
+  </div>`;
+  const unpaid=getUnpaid(m,y);
+  let ah='';
+  if(unpaid.length>0) ah+=`<div class="alert-r"><div class="dot-r"></div><div class="atext">${unpaid.length} compromisos pendientes: ${unpaid.map(c=>c.name).join(', ')}</div></div>`;
+  loans.filter(l=>daysUntil(l.due)<=30&&daysUntil(l.due)>0).forEach(l=>{ah+=`<div class="alert-a"><div class="dot-a"></div><div class="atext-a">${l.icon||'🏦'} ${l.name} vence en ${daysUntil(l.due)} días</div></div>`;});
+  if(fxl>500) ah+=`<div class="alert-a"><div class="dot-a"></div><div class="atext-a">Pérdida cambiaria este mes: Q${fxl.toFixed(2)}</div></div>`;
+  if(net<0) ah+=`<div class="alert-r"><div class="dot-r"></div><div class="atext">Flujo negativo. Considera reducir egresos.</div></div>`;
+  if(!ah) ah='<div class="alert-g">Sin alertas activas este mes</div>';
+  document.getElementById('d-alerts').innerHTML=ah;
+  const txs=getTx(m,y).slice(-6).reverse();
+  document.getElementById('d-recent').innerHTML=txs.map(t=>`<div class="item">
+    <div class="iico" style="background:${t.type==='income'?'rgba(29,158,117,0.15)':'rgba(226,75,74,0.1)'}">${CI[t.cat]||'💳'}</div>
+    <div class="iinfo"><div class="iname">${t.desc}</div><div class="isub">${CN[t.cat]||''} · ${t.currency||'GTQ'}</div></div>
+    <div class="iamt ${t.type==='income'?'g':'r'}">${t.type==='income'?'+':'-'}${fmt(t.amount,t.currency||'GTQ')}</div>
+  </div>`).join('')||'<div class="empty">Sin movimientos este mes</div>';
+}
+
+// ─── ACCOUNTS ────────────────────────────────────────────────
+function renderAccounts(){
+  const sel1=document.getElementById('cc-target-acc');
+  const sel2=document.getElementById('a-acc');
+  sel1.innerHTML=accounts.map(a=>`<option value="${a.id}">${a.icon||'🏦'} ${a.name}</option>`).join('');
+  sel2.innerHTML='<option value="">Sin cuenta</option>'+accounts.map(a=>`<option value="${a.id}">${a.icon||'🏦'} ${a.name}</option>`).join('');
+  const el=document.getElementById('acc-list');
+  if(!accounts.length){el.innerHTML='<div class="empty">Sin cuentas registradas</div>';return;}
+  el.innerHTML=accounts.map(a=>{
+    const isCC=a.type==='cc';
+    const cls=isCC?'acc-cc':a.currency==='USD'?'acc-usd':a.type==='investment'?'acc-inv':'acc-gtq';
+    const usage=isCC&&a.limit>0?Math.abs(a.balance)/a.limit*100:0;
+    return `<div class="acc-card ${cls}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div style="font-size:20px;margin-bottom:3px">${a.icon||'🏦'}</div>
+        <div style="font-size:13px;font-weight:500;color:var(--tx)">${a.name}</div>
+        <div style="font-size:10px;color:var(--mt)">${ACC_TYPE_LABEL[a.type]||a.type}</div></div>
+        <button class="dbtn" onclick="delAccount('${a.id}')">eliminar</button>
+      </div>
+      <div class="acc-bal ${a.balance<0?'neg':''}">${fmt(a.balance,a.currency)}</div>
+      ${isCC&&a.limit>0?`<div class="ltrack"><div class="lfill" style="width:${Math.min(100,usage).toFixed(0)}%;background:${usage>85?'#E24B4A':usage>60?'#EF9F27':'#378ADD'}"></div></div>
+      <div class="lr"><span>Usado: <strong>${fmt(Math.abs(a.balance),a.currency)}</strong></span><span>Límite: <strong>${fmt(a.limit,a.currency)}</strong></span></div>`:''}
+      <div class="acc-actions">
+        <div class="acc-btn" onclick="adjustAcc('${a.id}',1)">+ Depositar</div>
+        <div class="acc-btn red" onclick="adjustAcc('${a.id}',-1)">− Retirar</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.adjustAcc = async (id,dir) => {
+  const a=accounts.find(a=>a.id===id);if(!a)return;
+  const val=parseFloat(prompt((dir>0?'Monto a depositar en ':'Monto a retirar de ')+a.name+':')||'0');
+  if(!val||isNaN(val))return;
+  a.balance=parseFloat((a.balance+dir*val).toFixed(2));
+  await saveDoc('accounts',a);renderAll();
+};
+
+window.addAccount = async () => {
+  const name=document.getElementById('ac-name').value.trim();
+  const type=document.getElementById('ac-type').value;
+  const currency=document.getElementById('ac-currency').value;
+  const balance=parseFloat(document.getElementById('ac-balance').value)||0;
+  const limit=parseFloat(document.getElementById('ac-limit').value)||0;
+  const icon=document.getElementById('ac-icon').value.trim()||'🏦';
+  if(!name){showMsg('ac-msg','Escribe el nombre','e');return;}
+  const acc={id:newId(),name,icon,type,currency,balance,limit};
+  accounts.push(acc);
+  await saveDoc('accounts',acc);
+  ['ac-name','ac-balance','ac-limit','ac-icon'].forEach(id=>document.getElementById(id).value='');
+  renderAll();showMsg('ac-msg','✓ Cuenta creada','');
+};
+
+window.delAccount = async (id) => {
+  if(!confirm('¿Eliminar esta cuenta?'))return;
+  accounts=accounts.filter(a=>a.id!==id);
+  await deleteDocument('accounts',id);renderAll();
+};
+
+// ─── CSV ──────────────────────────────────────────────────────
+window.handleCSV = (e) => {
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const lines=ev.target.result.split('\n').filter(l=>l.trim());
+    const txs=[];
+    for(let i=1;i<lines.length;i++){
+      const cols=lines[i].split(/[,;]/).map(c=>c.trim().replace(/^"|"$/g,''));
+      if(cols.length<3)continue;
+      const amtStr=(cols[2]||'').replace(/[^0-9.\-]/g,'');
+      const amt=parseFloat(amtStr);
+      if(!cols[1]||isNaN(amt)||amt===0)continue;
+      const d=new Date(cols[0]);
+      txs.push({desc:cols[1],amount:Math.abs(amt),type:amt<0?'expense':'income',month:isNaN(d.getMonth())?cm:d.getMonth()+1,year:isNaN(d.getFullYear())||d.getFullYear()<2000?cy:d.getFullYear(),currency:'GTQ'});
+    }
+    const accId=document.getElementById('cc-target-acc').value||'';
+    const prev=document.getElementById('csv-preview');
+    if(!txs.length){prev.innerHTML='<div class="empty">No se encontraron transacciones válidas</div>';return;}
+    prev._txs=txs;
+    prev.innerHTML=`<div class="alert-g" style="margin-bottom:10px">Se encontraron ${txs.length} transacciones</div>`+
+      txs.slice(0,5).map(t=>`<div class="item"><div class="iico" style="background:rgba(55,138,221,0.1)">💳</div><div class="iinfo"><div class="iname">${t.desc}</div><div class="isub">${t.month}/${t.year}</div></div><div class="iamt ${t.type==='income'?'g':'r'}">${t.type==='income'?'+':'-'}Q${t.amount.toFixed(2)}</div></div>`).join('')+
+      (txs.length>5?`<div style="font-size:11px;color:var(--mt);text-align:center;padding:6px">...y ${txs.length-5} más</div>`:'')+
+      `<button class="btn" style="margin-top:10px" onclick="importCSV('${accId}')">Importar ${txs.length} transacciones</button>`;
+  };
+  reader.readAsText(file);
+};
+
+window.importCSV = async (accId) => {
+  const prev=document.getElementById('csv-preview');
+  const txs=prev._txs||[];
+  for(const t of txs){
+    const tx={id:newId(),...t,cat:'cc',accId,note:'CSV'};
+    allTx.push(tx);await saveDoc('transactions',tx);
+  }
+  prev.innerHTML=`<div class="alert-g">✓ ${txs.length} transacciones importadas</div>`;
+  renderAll();
+};
+
+// ─── FX ──────────────────────────────────────────────────────
+window.calcFX = () => {
+  const op=document.getElementById('fx-op').value;
+  const usd=parseFloat(document.getElementById('fx-usd').value)||0;
+  const tcGiven=parseFloat(document.getElementById('fx-tc-given').value)||0;
+  if(!usd||!tcGiven){document.getElementById('fx-result').style.display='none';return;}
+  document.getElementById('fx-result').style.display='block';
+  let actual,ideal,loss;
+  if(op==='sell'){actual=usd*tcGiven;ideal=usd*TC;loss=ideal-actual;document.getElementById('fx-got').textContent='Q'+actual.toFixed(2);document.getElementById('fx-got-lbl').textContent='Recibiste · Al TC Banguat serían Q'+ideal.toFixed(2);}
+  else{actual=usd*tcGiven;ideal=usd*TC;loss=actual-ideal;document.getElementById('fx-got').textContent='Q'+actual.toFixed(2);document.getElementById('fx-got-lbl').textContent='Pagaste · Al TC Banguat serían Q'+ideal.toFixed(2);}
+  loss=Math.max(0,loss);
+  const ll=document.getElementById('fx-loss-lbl');ll.className='fx-loss '+(loss>0?'r':'g');
+  ll.textContent=loss>0?'Pérdida cambiaria: Q'+loss.toFixed(2):'Sin pérdida en esta operación';
+  document.getElementById('fx-diff-det').textContent='Diferencial: Q'+Math.abs(tcGiven-TC).toFixed(4)+' por USD';
+};
+
+window.registerFX = async () => {
+  const op=document.getElementById('fx-op').value;
+  const usd=parseFloat(document.getElementById('fx-usd').value)||0;
+  const tcGiven=parseFloat(document.getElementById('fx-tc-given').value)||0;
+  if(!usd||!tcGiven){showMsg('fx-msg','Completa los campos','e');return;}
+  let loss=op==='sell'?(usd*TC)-(usd*tcGiven):(usd*tcGiven)-(usd*TC);
+  loss=Math.max(0,parseFloat(loss.toFixed(2)));
+  const fx={id:newId(),op,usd,tcGiven,tcRef:TC,loss,month:cm,year:cy,date:new Date().toISOString().slice(0,10)};
+  fxOps.push(fx);await saveDoc('fxOps',fx);
+  document.getElementById('fx-usd').value='';document.getElementById('fx-tc-given').value='';
+  document.getElementById('fx-result').style.display='none';
+  renderAll();showMsg('fx-msg','✓ Operación registrada','');
+};
+
+function renderFX(){
+  const ops=fxOps.filter(f=>f.month===cm&&f.year===cy).slice().reverse();
+  document.getElementById('fx-loss-m').textContent='Q'+getFXLoss(cm,cy).toFixed(2);
+  document.getElementById('fx-ops-m').textContent=ops.length;
+  document.getElementById('fx-tc-ref').value=TC.toFixed(4);
+  const el=document.getElementById('fx-history');
+  if(!ops.length){el.innerHTML='<div class="empty">Sin operaciones este mes</div>';return;}
+  el.innerHTML=ops.map(f=>`<div class="item">
+    <div class="iico" style="background:rgba(55,138,221,0.1)">💱</div>
+    <div class="iinfo"><div class="iname">${f.op==='sell'?'Vendí':'Compré'} $${f.usd.toFixed(2)} USD</div>
+    <div class="isub">TC dado: Q${f.tcGiven} · Banguat: Q${f.tcRef} · ${f.date||''}</div></div>
+    <div style="text-align:right;flex-shrink:0"><div class="iamt r">−Q${f.loss.toFixed(2)}</div><div style="font-size:9px;color:var(--mt)">diferencial</div></div>
+  </div>`).join('');
+}
+
+// ─── LOANS ───────────────────────────────────────────────────
+function renderLoans(){
+  const el=document.getElementById('loans-list');
+  if(!loans.length){el.innerHTML='<div class="empty">Sin préstamos registrados</div>';return;}
+  el.innerHTML=loans.map(l=>{
+    const paid=l.total-l.balance,p=l.total>0?Math.round(paid/l.total*100):0;
+    const days=daysUntil(l.due);
+    const b=days<0?'<span class="badge br">Vencido</span>':days<=30?`<span class="badge ba">${days}d</span>`:`<span class="badge bb">${l.due?MS[new Date(l.due).getMonth()]+' '+new Date(l.due).getFullYear():'—'}</span>`;
+    return `<div style="background:var(--dk2);border-radius:12px;padding:13px;border:0.5px solid var(--brd);margin-bottom:9px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div><div style="font-size:18px;margin-bottom:2px">${l.icon||'🏦'}</div>
+        <div style="font-size:13px;font-weight:500;color:var(--tx)">${l.name} <span class="badge bb">${l.currency||'GTQ'}</span></div>
+        <div style="font-size:10px;color:var(--mt)">${l.rate||0}% anual · cuota ${fmt(l.payment,l.currency||'GTQ')}</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">${b}<button class="dbtn" onclick="delLoan('${l.id}')">eliminar</button></div>
+      </div>
+      <div class="ltrack"><div class="lfill" style="width:${p}%;background:${p>80?'#1D9E75':p>50?'#EF9F27':'#378ADD'}"></div></div>
+      <div class="lr"><span>Pagado: <strong>${fmt(paid,l.currency||'GTQ')}</strong></span><span>Pendiente: <strong style="color:#f87171">${fmt(l.balance,l.currency||'GTQ')}</strong></span></div>
+      <div class="lr" style="margin-top:3px"><span>Interés/mes ≈ <strong style="color:#fbbf24">${fmt(Math.round(l.balance*(l.rate||0)/100/12),l.currency||'GTQ')}</strong></span><span>Total: <strong>${fmt(l.total,l.currency||'GTQ')}</strong></span></div>
+    </div>`;
+  }).join('');
+}
+
+window.addLoan = async () => {
+  const name=document.getElementById('l-name').value.trim();
+  const total=parseFloat(document.getElementById('l-total').value)||0;
+  const bal=parseFloat(document.getElementById('l-bal').value)||total;
+  const rate=parseFloat(document.getElementById('l-rate').value)||0;
+  const pay=parseFloat(document.getElementById('l-pay').value)||0;
+  const day=parseInt(document.getElementById('l-day').value)||1;
+  const due=document.getElementById('l-due').value;
+  const currency=document.getElementById('l-currency').value;
+  const icon=document.getElementById('l-icon').value.trim()||'🏦';
+  if(!name||!total||!pay){showMsg('l-msg','Completa nombre, monto y cuota','e');return;}
+  const loan={id:newId(),name,icon,total,balance:bal,rate,payment:pay,day,due,currency};
+  loans.push(loan);await saveDoc('loans',loan);
+  ['l-name','l-total','l-bal','l-rate','l-pay','l-day','l-due','l-icon'].forEach(id=>document.getElementById(id).value='');
+  renderAll();showMsg('l-msg','✓ Préstamo registrado','');
+};
+
+window.delLoan = async (id) => {
+  if(!confirm('¿Eliminar préstamo?'))return;
+  loans=loans.filter(l=>l.id!==id);await deleteDocument('loans',id);renderAll();
+};
+
+// ─── COMMITS ─────────────────────────────────────────────────
+function renderCommits(){
+  const el=document.getElementById('commits-list');
+  const fl={monthly:'Mensual',weekly:'Semanal',biweekly:'Quincenal',yearly:'Anual'};
+  if(!commits.length){el.innerHTML='<div class="empty">Sin compromisos</div>';return;}
+  el.innerHTML=commits.map(c=>{
+    const paid=isPaid(c,cm,cy);
+    return `<div style="background:var(--dk2);border-radius:11px;padding:12px;border:0.5px solid var(--brd);margin-bottom:8px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <div style="font-size:18px">${c.icon||'📌'}</div>
+        <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--tx)">${c.name} <span class="badge bb">${c.currency||'GTQ'}</span></div>
+        <div style="font-size:10px;color:var(--mt)">${fl[c.freq]||'Mensual'} · día ${c.day||1}</div></div>
+        <div style="font-size:14px;font-weight:500;color:${paid?'#34d399':'#f87171'}">${fmt(c.amount,c.currency||'GTQ')}</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span>${paid?'<span class="badge bg">Pagado</span>':'<span class="badge br">Pendiente</span>'}</span>
+        <div style="display:flex;gap:5px">
+          ${!paid?`<button class="paybtn" onclick="payC('${c.id}')">Marcar pagado</button>`:`<button class="dbtn" onclick="unpayC('${c.id}')">deshacer</button>`}
+          <button class="dbtn" onclick="delC('${c.id}')">eliminar</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.addCommit = async () => {
+  const name=document.getElementById('c-name').value.trim();
+  const amt=parseFloat(document.getElementById('c-amt').value)||0;
+  const cur=document.getElementById('c-cur').value;
+  const freq=document.getElementById('c-freq').value;
+  const day=parseInt(document.getElementById('c-day').value)||1;
+  const icon=document.getElementById('c-icon').value.trim()||'📌';
+  if(!name||!amt){showMsg('c-msg','Completa nombre y monto','e');return;}
+  const commit={id:newId(),name,icon,amount:amt,currency:cur,freq,day,paidMonths:[]};
+  commits.push(commit);await saveDoc('commits',commit);
+  ['c-name','c-amt','c-day','c-icon'].forEach(id=>document.getElementById(id).value='');
+  renderAll();showMsg('c-msg','✓ Compromiso agregado','');
+};
+
+window.payC = async (id) => {
+  const c=commits.find(c=>c.id===id);if(!c)return;
+  if(!isPaid(c,cm,cy)){if(!c.paidMonths)c.paidMonths=[];c.paidMonths.push(mkStr(cm,cy));}
+  await saveDoc('commits',c);renderAll();
+};
+window.unpayC = async (id) => {
+  const c=commits.find(c=>c.id===id);if(!c)return;
+  c.paidMonths=(c.paidMonths||[]).filter(s=>s!==mkStr(cm,cy));
+  await saveDoc('commits',c);renderAll();
+};
+window.delC = async (id) => {
+  if(!confirm('¿Eliminar compromiso?'))return;
+  commits=commits.filter(c=>c.id!==id);await deleteDocument('commits',id);renderAll();
+};
+
+// ─── PENDING ─────────────────────────────────────────────────
+function renderPending(){
+  const el=document.getElementById('pending-list');
+  const up=getUnpaid(cm,cy);
+  if(!up.length){el.innerHTML='<div class="alert-g">Sin pagos pendientes este mes 🎉</div>';return;}
+  el.innerHTML=up.map(c=>`<div style="background:rgba(226,75,74,0.05);border:0.5px solid rgba(226,75,74,0.18);border-radius:11px;padding:13px;margin-bottom:9px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+      <div class="dot-r"></div><div style="font-size:18px">${c.icon||'📌'}</div>
+      <div style="flex:1;font-size:13px;font-weight:500;color:var(--tx)">${c.name}</div>
+      <div style="font-size:14px;font-weight:500;color:#f87171">${fmt(c.amount,c.currency||'GTQ')}</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mt)">
+      <span>Día ${c.day||1} · ${c.currency||'GTQ'}</span>
+      <button class="paybtn" onclick="payC('${c.id}')">Pagar ahora</button>
+    </div>
+  </div>`).join('');
+}
+
+// ─── TRANSACTIONS ─────────────────────────────────────────────
+function renderTxList(){
+  const txs=allTx.filter(t=>t.month===cm&&t.year===cy).slice().reverse();
+  const el=document.getElementById('tx-list');
+  if(!txs.length){el.innerHTML='<div class="empty">Sin movimientos este mes</div>';return;}
+  el.innerHTML=txs.map(t=>`<div class="item">
+    <div class="iico" style="background:${t.type==='income'?'rgba(29,158,117,0.15)':'rgba(226,75,74,0.1)'}">${CI[t.cat]||'💳'}</div>
+    <div class="iinfo"><div class="iname">${t.desc}</div><div class="isub">${CN[t.cat]||''} · ${t.currency||'GTQ'}${t.note?' · '+t.note:''}</div></div>
+    <div class="iamt ${t.type==='income'?'g':'r'}">${t.type==='income'?'+':'-'}${fmt(t.amount,t.currency||'GTQ')}</div>
+  </div>`).join('');
+}
+
+window.addTx = async () => {
+  const desc=document.getElementById('a-desc').value.trim();
+  const amt=parseFloat(document.getElementById('a-amt').value)||0;
+  const cur=document.getElementById('a-cur').value;
+  const type=document.getElementById('a-type').value;
+  const cat=document.getElementById('a-cat').value;
+  const accId=document.getElementById('a-acc').value||'';
+  const dateVal=document.getElementById('a-date').value;
+  const note=document.getElementById('a-note').value.trim();
+  const d=dateVal?new Date(dateVal):new Date();
+  if(!desc||!amt){showMsg('a-msg','Completa descripción y monto','e');return;}
+  const tx={id:newId(),desc,amount:amt,currency:cur,type,cat,accId,note,month:d.getMonth()+1,year:d.getFullYear()};
+  allTx.push(tx);await saveDoc('transactions',tx);
+  if(accId){const acc=accounts.find(a=>a.id===accId);if(acc){acc.balance=parseFloat((acc.balance+(type==='income'?amt:-amt)).toFixed(2));await saveDoc('accounts',acc);}}
+  document.getElementById('a-desc').value='';document.getElementById('a-amt').value='';document.getElementById('a-note').value='';
+  renderAll();showMsg('a-msg','✓ Guardado en Firebase','');
+};
+
+// ─── CASHFLOW ─────────────────────────────────────────────────
+function renderCashflow(){
+  const baseInc=getInc(cm,cy)||8000,baseExp=getExp(cm,cy)||1500;
+  const lp=getLoanTotal(),cp=getCommitTotal();
+  let total=0,html='';
+  for(let i=0;i<6;i++){
+    const d=new Date(cy,cm-1+i,1);const m=d.getMonth()+1,y=d.getFullYear();
+    const mInc=getInc(m,y)||baseInc,mExp=getExp(m,y)||baseExp;
+    const net=mInc-mExp-lp-cp;total+=net;
+    const inW=Math.min(98,Math.round(mInc/(mInc+mExp+lp+cp+1)*100));
+    html+=`<div class="cf-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div style="font-size:12px;font-weight:500;color:var(--tx)">${MS[m-1]} ${y}</div>
+      <div style="font-size:13px;font-weight:500;color:${net>=0?'#34d399':'#f87171'}">${net>=0?'+':''}${fmtQ(net)}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;font-size:11px">
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Ingresos</span><strong style="color:#34d399">${fmtQ(mInc)}</strong></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Egresos variables</span><strong style="color:#f87171">${fmtQ(mExp)}</strong></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--mt)">Fijos (préstamos+compromisos)</span><strong style="color:#fbbf24">${fmtQ(lp+cp)}</strong></div>
+    </div>
+    <div class="cf-bar"><div class="cf-in" style="width:${inW}%"></div><div class="cf-out" style="width:${100-inW}%"></div></div>
+    </div>`;
+  }
+  document.getElementById('cf-months').innerHTML=html;
+  const t=Math.round(total);
+  document.getElementById('cf-total').textContent=Math.abs(t).toLocaleString('es-GT');
+  document.getElementById('cf-sub').textContent=t>=0?'Proyección positiva — finanzas saludables':'Proyección negativa — revisar estructura de gastos';
+}
+
+// ─── CHARTS ──────────────────────────────────────────────────
+function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+function renderCharts(){
+  const labels=[],incD=[],expD=[],netD=[],fxD=[];
+  for(let i=5;i>=0;i--){
+    const d=new Date(cy,cm-1-i,1);const m=d.getMonth()+1,y=d.getFullYear();
+    labels.push(MS[m-1]);
+    incD.push(Math.round(getInc(m,y)));expD.push(Math.round(getExp(m,y)));
+    netD.push(Math.round(getInc(m,y)-getExp(m,y)));fxD.push(parseFloat(getFXLoss(m,y).toFixed(2)));
+  }
+  const gOpts={responsive:true,plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{x:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},y:{ticks:{color:'#4a6080',font:{size:9},callback:v=>'Q'+v.toLocaleString()},grid:{color:'rgba(55,138,221,0.05)'}}}};
+  destroyChart('ch1');charts['ch1']=new Chart(document.getElementById('ch1'),{type:'bar',data:{labels,datasets:[{label:'Ingresos',data:incD,backgroundColor:'rgba(29,158,117,0.7)',borderRadius:3},{label:'Egresos',data:expD,backgroundColor:'rgba(226,75,74,0.65)',borderRadius:3}]},options:{...gOpts}});
+  const catExp={};allTx.filter(t=>t.month===cm&&t.year===cy&&t.type==='expense').forEach(t=>{catExp[t.cat]=(catExp[t.cat]||0)+toGTQ(t.amount,t.currency||'GTQ');});
+  const ckeys=Object.keys(catExp);
+  destroyChart('ch2');if(ckeys.length){charts['ch2']=new Chart(document.getElementById('ch2'),{type:'doughnut',data:{labels:ckeys.map(k=>CN[k]||k),datasets:[{data:ckeys.map(k=>Math.round(catExp[k])),backgroundColor:ckeys.map(k=>CC_COLORS[k]||'#7a94b8'),borderWidth:0}]},options:{responsive:true,cutout:'62%',plugins:{legend:{position:'right',labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}}}});}
+  destroyChart('ch3');charts['ch3']=new Chart(document.getElementById('ch3'),{type:'line',data:{labels,datasets:[{label:'Flujo neto',data:netD,borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.07)',tension:0.4,fill:true,pointBackgroundColor:netD.map(v=>v>=0?'#1D9E75':'#E24B4A'),pointRadius:4,borderWidth:1.5}]},options:{...gOpts}});
+  destroyChart('ch4');charts['ch4']=new Chart(document.getElementById('ch4'),{type:'bar',data:{labels,datasets:[{label:'Pérdida cambiaria Q',data:fxD,backgroundColor:'rgba(226,75,74,0.6)',borderRadius:3}]},options:{...gOpts}});
+  const accLabels=accounts.map(a=>a.name.length>12?a.name.slice(0,12)+'…':a.name);
+  const accVals=accounts.map(a=>a.currency==='USD'?parseFloat((a.balance*TC).toFixed(2)):parseFloat(a.balance.toFixed(2)));
+  destroyChart('ch5');if(accounts.length){charts['ch5']=new Chart(document.getElementById('ch5'),{type:'bar',data:{labels:accLabels,datasets:[{label:'Balance GTQ',data:accVals,backgroundColor:accVals.map(v=>v>=0?'rgba(55,138,221,0.6)':'rgba(226,75,74,0.6)'),borderRadius:3}]},options:{...gOpts,indexAxis:'y',scales:{y:{ticks:{color:'#4a6080',font:{size:9}},grid:{color:'rgba(55,138,221,0.05)'}},x:{ticks:{color:'#4a6080',font:{size:9},callback:v=>'Q'+v.toLocaleString()},grid:{color:'rgba(55,138,221,0.05)'}}}}}});}
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────
+window.changeMonth = async (dir) => {
+  cm+=dir;if(cm>12){cm=1;cy++;}if(cm<1){cm=12;cy--;}
+  document.getElementById('month-label').textContent=MONTHS[cm-1]+' '+cy;
+  await saveSettings();renderAll();
+};
+window.showTab = (tab,el) => {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('s-'+tab).classList.add('active');
+  el.classList.add('active');renderAll();
+};
+
+function renderAll(){
+  if(!currentUser)return;
+  renderDash();renderAccounts();renderFX();renderLoans();renderCommits();renderPending();renderTxList();renderCashflow();
+  setTimeout(renderCharts,100);
+}
+</script>
+</body>
+</html>
