@@ -1301,27 +1301,28 @@ window.delCategoria = async (id) => {
  
 //  EXPORT FUNCTIONS 
 function txsToCSV(txs){
-  const headers = ['Fecha','Descripcion','Tipo','Categoria','Monto','Moneda','Monto GTQ','Cuenta','IVA','Diezmo','Nota'];
-  const rows = txs.map(t=>{
-    const acc = accounts.find(a=>a.id===t.accId);
-    return [
+  var sep = String.fromCharCode(13,10);
+  var lines = ['Fecha,Descripcion,Tipo,Categoria,Monto,Moneda,Cuenta,IVA,Diezmo,Nota'];
+  for(var i=0;i<txs.length;i++){
+    var t = txs[i];
+    var acc = null;
+    for(var j=0;j<accounts.length;j++){if(accounts[j].id===t.accId){acc=accounts[j];break;}}
+    var row = [
       t.year+'-'+String(t.month).padStart(2,'0'),
-      '"'+t.desc+'"',
-      t.type==='income'?'Ingreso':'Gasto',
-      t.cat,
-      t.amount,
-      t.currency||'GTQ',
-      toGTQ(t.amount,t.currency||'GTQ').toFixed(2),
-      acc?acc.name:'',
-      t.ivaMonto||0,
-      t.diezmoSugerido||0,
-      '"'+(t.note||'')+'"'
-    ].join(',');
-  });
-    return [headers.join(','), ...rows].join('\n');
- 
+      ('"'+(t.desc||'')+'"'),
+      (t.type==='income'?'Ingreso':'Gasto'),
+      (t.cat||''),
+      (t.amount||0),
+      (t.currency||'GTQ'),
+      (acc?acc.name:''),
+      (t.ivaMonto||0),
+      (t.diezmoSugerido||0),
+      ('"'+(t.note||'')+'"')
+    ];
+    lines.push(row.join(','));
+  }
+  return lines.join(sep);
 }
- 
 function downloadCSV(content, filename){
   const blob = new Blob([content], {type:'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
