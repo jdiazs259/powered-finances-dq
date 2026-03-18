@@ -1318,8 +1318,8 @@ function txsToCSV(txs){
       '"'+(t.note||'')+'"'
     ].join(',');
   });
-  return [headers.join(','), ...rows].join('
-');
+    return [headers.join(','), ...rows].join('\n');
+ 
 }
  
 function downloadCSV(content, filename){
@@ -1374,4 +1374,3 @@ function renderExportSummary(){
 </script>
 </body>
 </html>
- 
