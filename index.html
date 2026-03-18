@@ -686,7 +686,11 @@ async function loadAllData(){
     ]);
     accounts=a.docs.map(d=>d.data()); loans=l.docs.map(d=>d.data()); commits=c.docs.map(d=>d.data());
     allTx=t.docs.map(d=>d.data()); fxOps=f.docs.map(d=>d.data()); customCats=cat.docs.map(d=>d.data());
-    if(s.exists()){ const sd=s.data(); cm=sd.cm||cm; cy=sd.cy||cy; TC=sd.TC||TC; }
+    if(s.exists()){ const sd=s.data(); cm=sd.cm||cm; cy=sd.cy||cy;
+      // Validate TC - must be between 6 and 12 (GTQ range)
+      var savedTC = parseFloat(sd.TC);
+      if(savedTC && savedTC > 6 && savedTC < 12) { TC = savedTC; } else { TC = 7.65; }
+    }
     updateCatSelects();
   }catch(e){ console.error(e); }
 }
