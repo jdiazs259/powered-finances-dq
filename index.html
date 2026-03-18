@@ -21,24 +21,24 @@
 }
 html,body{margin:0;padding:0;background:var(--blk);min-height:100vh}
 body{font-family:'Inter',-apple-system,sans-serif;font-size:14px;color:var(--tx)}
- 
+
 /* LOGIN */
 .login-screen{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 24px;background:var(--blk)}
 .login-screen.active{display:flex}
 .btn-google{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;max-width:300px;background:#fff;border:none;border-radius:12px;padding:14px 20px;font-size:14px;font-weight:500;color:#1f2937;cursor:pointer;font-family:inherit}
 .btn-google:hover{background:#f3f4f6}
 .login-sub{font-size:13px;color:var(--mt);margin-bottom:36px;text-align:center;line-height:1.6;max-width:260px}
- 
+
 /* LOADING */
 .loading-screen{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px}
 .loading-screen.active{display:flex}
 .spinner{width:32px;height:32px;border:2px solid var(--brd2);border-top-color:var(--b5);border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
- 
+
 /* APP SHELL */
 .app-shell{display:none;flex-direction:column;min-height:100vh;max-width:600px;margin:0 auto;background:var(--blk)}
 .app-shell.active{display:flex}
- 
+
 /* TOPBAR */
 .topbar{background:var(--dk);padding:12px 16px;border-bottom:0.5px solid var(--brd);display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;flex-shrink:0}
 .hamburger{background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-direction:column;gap:5px;flex-shrink:0}
@@ -52,13 +52,13 @@ body{font-family:'Inter',-apple-system,sans-serif;font-size:14px;color:var(--tx)
 .tc-pill{background:var(--dk2);border:0.5px solid var(--brd2);border-radius:8px;padding:5px 10px;font-size:10px;color:var(--mt);cursor:pointer;white-space:nowrap;flex-shrink:0}
 .tc-pill span{color:var(--amb);font-weight:500}
 .user-avatar{width:28px;height:28px;border-radius:50%;border:1px solid var(--brd2);flex-shrink:0;display:none}
- 
+
 /* MONTH NAV */
 .month-bar{background:var(--dk);padding:8px 16px 12px;border-bottom:0.5px solid var(--brd);display:flex;align-items:center;gap:6px;position:sticky;top:57px;z-index:49;flex-shrink:0}
 .mnbtn{background:none;border:0.5px solid var(--brd2);color:var(--mt);border-radius:6px;padding:4px 12px;font-size:14px;cursor:pointer;font-family:inherit}
 .mnbtn:hover{background:var(--dk2);color:var(--tx)}
 .mnlabel{flex:1;text-align:center;font-size:13px;font-weight:500;color:var(--tx)}
- 
+
 /* SIDE MENU OVERLAY */
 .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:100;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .menu-overlay.open{opacity:1;pointer-events:all}
@@ -82,12 +82,12 @@ body{font-family:'Inter',-apple-system,sans-serif;font-size:14px;color:var(--tx)
 .menu-footer{padding:16px 20px;border-top:0.5px solid var(--brd);margin-top:auto}
 .sign-out-btn{width:100%;background:rgba(226,75,74,0.1);border:0.5px solid rgba(226,75,74,0.2);color:#f87171;border-radius:8px;padding:10px;font-size:13px;cursor:pointer;font-family:inherit}
 .sign-out-btn:hover{background:rgba(226,75,74,0.2)}
- 
+
 /* CONTENT */
 .content{flex:1;padding-bottom:40px}
 .screen{display:none;padding:16px}
 .screen.active{display:block}
- 
+
 /* COMPONENTS */
 .hero{background:var(--b8);border-radius:14px;padding:18px 20px;margin-bottom:12px;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;top:-25px;right:-25px;width:100px;height:100px;border-radius:50%;background:rgba(55,138,221,0.12)}
@@ -178,7 +178,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
 </style>
 </head>
 <body>
- 
+
 <!-- LOGIN -->
 <div class="login-screen" id="login-screen">
   <svg width="120" height="46" viewBox="0 0 128 48" fill="none" style="margin-bottom:24px">
@@ -195,16 +195,16 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
     Continuar con Google
   </button>
 </div>
- 
+
 <!-- LOADING -->
 <div class="loading-screen" id="loading-screen">
   <div class="spinner"></div>
   <div style="font-size:12px;color:var(--mt)">Cargando...</div>
 </div>
- 
+
 <!-- MENU OVERLAY -->
 <div class="menu-overlay" id="menu-overlay" onclick="closeMenu()"></div>
- 
+
 <!-- SIDE MENU -->
 <div class="side-menu" id="side-menu">
   <div class="menu-header">
@@ -223,7 +223,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       </div>
     </div>
   </div>
- 
+
   <div class="menu-section">
     <div class="menu-section-label">Principal</div>
     <button class="menu-item active" id="mi-registro" onclick="navTo('registro')">
@@ -239,7 +239,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <span class="mi-icon">!</span><span class="mi-label">Pendientes</span><span class="mi-badge" id="pending-badge" style="display:none">0</span>
     </button>
   </div>
- 
+
   <div class="menu-section">
     <div class="menu-section-label">Finanzas</div>
     <button class="menu-item" id="mi-accounts" onclick="navTo('accounts')">
@@ -258,7 +258,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <span class="mi-icon">></span><span class="mi-label">Cashflow</span>
     </button>
   </div>
- 
+
   <div class="menu-section">
     <div class="menu-section-label">Analisis</div>
     <button class="menu-item" id="mi-charts" onclick="navTo('charts')">
@@ -271,13 +271,13 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <span class="mi-icon">v</span><span class="mi-label">Exportar datos</span>
     </button>
   </div>
- 
+
   <div class="menu-footer">
-    <div style="font-size:10px;color:var(--mt);margin-bottom:8px;text-align:center">TC Banguat: <span id="menu-tc" style="color:var(--amb)">...</span></div>
+    <div style="font-size:10px;color:var(--mt);margin-bottom:8px;text-align:center">TC Banguat: <span id="menu-tc" style="color:var(--amb);cursor:pointer" onclick="setManualTC()">...</span> <span style="color:var(--mt2);cursor:pointer" onclick="fetchTC()">(actualizar)</span></div>
     <button class="sign-out-btn" onclick="signOut()">Cerrar sesion</button>
   </div>
 </div>
- 
+
 <!-- APP -->
 <div class="app-shell" id="main-app">
   <div class="topbar">
@@ -288,7 +288,10 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <div class="name">Powered Finances DQ</div>
       <div class="sub" id="sync-status">Conectando...</div>
     </div>
-    <div class="tc-pill" onclick="fetchTC()">TC: <span id="tc-val">...</span></div>
+    <div style="display:flex;gap:6px;align-items:center">
+      <div class="tc-pill" onclick="fetchTC()" title="Actualizar del Banguat">TC: <span id="tc-val">...</span></div>
+      <div class="tc-pill" onclick="setManualTC()" title="Ingresar TC manual" style="padding:5px 8px">M</div>
+    </div>
     <img id="user-avatar" class="user-avatar" src="">
   </div>
   <div class="month-bar">
@@ -296,9 +299,9 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
     <div class="mnlabel" id="month-label">Marzo 2026</div>
     <button class="mnbtn" onclick="changeMonth(1)">&#8250;</button>
   </div>
- 
+
   <div class="content">
- 
+
     <!-- REGISTRO (home) -->
     <div class="screen active" id="s-registro">
       <div class="stitle" style="margin-top:0">Tipo de movimiento</div>
@@ -306,7 +309,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <div id="rt-ingreso" class="toggle-btn on" onclick="setRegTipo('ingreso')">Ingreso</div>
         <div id="rt-gasto" class="toggle-btn" onclick="setRegTipo('gasto')">Gasto</div>
       </div>
- 
+
       <!-- INGRESO FORM -->
       <div id="form-ingreso">
         <div class="fg"><label class="fl">Descripcion</label><input class="fi" id="ing-desc" placeholder="Ej. Honorarios consulta"></div>
@@ -355,7 +358,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <button class="btn" onclick="registrarIngreso()">Registrar ingreso</button>
         <div class="msg" id="ing-msg"></div>
       </div>
- 
+
       <!-- GASTO FORM -->
       <div id="form-gasto" style="display:none">
         <div class="fg"><label class="fl">Descripcion</label><input class="fi" id="g-desc" placeholder="Ej. Almuerzo zona 10"></div>
@@ -372,12 +375,12 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <button class="btn" onclick="registrarGasto()">Registrar gasto</button>
         <div class="msg" id="g-msg"></div>
       </div>
- 
+
       <hr>
       <div class="stitle">Ultimos movimientos</div>
       <div id="recent-txs"></div>
     </div>
- 
+
     <!-- DASHBOARD -->
     <div class="screen" id="s-dashboard">
       <div class="hero">
@@ -402,19 +405,19 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <div class="stitle">Ingresos del mes</div>
       <div id="d-ingresos-summary"></div>
     </div>
- 
+
     <!-- INGRESOS HISTORIAL -->
     <div class="screen" id="s-ingresos">
       <div class="stitle" style="margin-top:0">Ingresos del mes</div>
       <div id="ing-summary"></div>
       <div id="ing-list"></div>
     </div>
- 
+
     <!-- PENDIENTES -->
     <div class="screen" id="s-pending">
       <div id="pending-list"></div>
     </div>
- 
+
     <!-- CUENTAS -->
     <div class="screen" id="s-accounts">
       <div id="acc-list"></div>
@@ -450,7 +453,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       </div>
       <div id="csv-preview"></div>
     </div>
- 
+
     <!-- PRESTAMOS -->
     <div class="screen" id="s-loans">
       <div id="loans-list"></div>
@@ -477,7 +480,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <div class="msg" id="l-msg"></div>
       </div>
     </div>
- 
+
     <!-- COMPROMISOS -->
     <div class="screen" id="s-commits">
       <div id="commits-list"></div>
@@ -502,7 +505,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <div class="msg" id="c-msg"></div>
       </div>
     </div>
- 
+
     <!-- DIVISAS -->
     <div class="screen" id="s-fx">
       <div class="hero">
@@ -534,7 +537,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <div class="stitle">Historial del mes</div>
       <div id="fx-history"></div>
     </div>
- 
+
     <!-- CASHFLOW -->
     <div class="screen" id="s-cashflow">
       <div class="hero">
@@ -544,7 +547,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       </div>
       <div id="cf-months"></div>
     </div>
- 
+
     <!-- GRAFICAS -->
     <div class="screen" id="s-charts">
       <div class="chart-wrap"><div class="ct">Ingresos vs egresos 6 meses</div><canvas id="ch1" height="150"></canvas></div>
@@ -553,7 +556,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <div class="chart-wrap"><div class="ct">Perdida cambiaria</div><canvas id="ch4" height="120"></canvas></div>
       <div class="chart-wrap"><div class="ct">Balance de cuentas</div><canvas id="ch5" height="140"></canvas></div>
     </div>
- 
+
     <!-- CATEGORIAS -->
     <div class="screen" id="s-categorias">
       <div class="stitle" style="margin-top:0">Mis categorias de gastos</div>
@@ -569,7 +572,7 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
         <div class="msg" id="cat-msg"></div>
       </div>
     </div>
- 
+
     <!-- EXPORTAR -->
     <div class="screen" id="s-export">
       <div class="stitle" style="margin-top:0">Exportar datos</div>
@@ -593,17 +596,17 @@ hr{border:none;border-top:0.5px solid var(--brd);margin:16px 0}
       <div class="stitle">Resumen del mes</div>
       <div id="export-summary"></div>
     </div>
- 
+
   </div>
 </div>
- 
+
 <div class="saved-badge" id="saved-badge">Guardado en la nube</div>
- 
+
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
- 
+
 const firebaseConfig = {
   apiKey: "AIzaSyBkSR1N0d2ofsULI6P2zIWtyknkehkceG4",
   authDomain: "powered-finances-dq.firebaseapp.com",
@@ -612,11 +615,11 @@ const firebaseConfig = {
   messagingSenderId: "636684883878",
   appId: "1:636684883878:web:76fd8684cc1b95d1a1e167"
 };
- 
+
 const fbApp = initializeApp(firebaseConfig);
 const auth = getAuth(fbApp);
 const db = getFirestore(fbApp);
- 
+
 // STATE
 let currentUser = null;
 let cm = new Date().getMonth()+1;
@@ -626,13 +629,13 @@ let nid = Date.now();
 let accounts=[], loans=[], commits=[], allTx=[], fxOps=[], customCats=[];
 let charts={};
 let ingIVA=false, ingDiezmo=true, regTipo='ingreso';
- 
+
 const MONTHS=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MS=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const BASE_CATS={general:'General',food:'Alimentacion',transport:'Transporte',entertainment:'Entretenimiento',health:'Salud',clothing:'Ropa',tithe:'Diezmo',loan:'Prestamo',fx:'Divisas',cc:'Tarjeta',utilities:'Servicios',education:'Educacion',salary:'Salario',freelance:'Honorarios',business:'Negocio',rental:'Alquiler',investment:'Inversion'};
 const CAT_COLORS={general:'#7a94b8',food:'#EF9F27',transport:'#378ADD',entertainment:'#7F77DD',health:'#E24B4A',clothing:'#1D9E75',tithe:'#85B7EB',loan:'#fbbf24',fx:'#34d399',cc:'#f87171',utilities:'#60a5fa',education:'#a78bfa',salary:'#1D9E75',freelance:'#85B7EB',business:'#EF9F27',rental:'#7F77DD',investment:'#34d399'};
 const ACC_LABELS={'bank-gtq':'Banco GTQ','bank-usd':'Banco USD','cash-gtq':'Efectivo GTQ','cash-usd':'Efectivo USD','cc':'Tarjeta de credito','investment':'Inversion'};
- 
+
 // AUTH
 window.signInGoogle = async () => {
   try { await signInWithPopup(auth, new GoogleAuthProvider()); }
@@ -668,7 +671,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById('main-app').classList.remove('active');
   }
 });
- 
+
 // FIRESTORE
 function userCol(c){ return collection(db,'users',currentUser.uid,c); }
 function userDoc(c,id){ return doc(db,'users',currentUser.uid,c,String(id)); }
@@ -688,46 +691,53 @@ async function loadAllData(){
   }catch(e){ console.error(e); }
 }
 async function saveSettings(){ try{ await setDoc(userDoc('settings','main'),{cm,cy,TC}); }catch(e){} }
- 
+
 // TC BANGUAT
 window.fetchTC = async () => {
   document.getElementById('tc-val').textContent='...';
   document.getElementById('menu-tc').textContent='...';
   let ok=false;
-  try{
-    const r = await fetch('https://corsproxy.io/?'+encodeURIComponent('https://banguat.gob.gt/xml/variables.xml'),{signal:AbortSignal.timeout(7000)});
-    if(r.ok){
-      const xml = await r.text();
-      const nums = xml.match(/[6789]\.[0-9]{4,5}/g);
-      if(nums){
-        const valid = nums.filter(function(n){ const v=parseFloat(n); return v>6.5&&v<9; });
-        if(valid.length){ TC=parseFloat(valid[0]); ok=true; }
-      }
-    }
-  }catch(e){}
-  if(!ok){
+  // Target exact Banguat TC page - look for 7.XXXXX pattern
+  const urls = [
+    'https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.banguat.gob.gt/tipo_cambio'),
+    'https://corsproxy.io/?'+encodeURIComponent('https://www.banguat.gob.gt/tipo_cambio'),
+    'https://api.allorigins.win/raw?url='+encodeURIComponent('https://banguat.gob.gt/tipo_cambio'),
+  ];
+  for(var i=0; i<urls.length && !ok; i++){
     try{
-      const r2 = await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://banguat.gob.gt/xml/variables.xml'),{signal:AbortSignal.timeout(7000)});
-      if(r2.ok){
-        const xml2 = await r2.text();
-        const nums2 = xml2.match(/[6789]\.[0-9]{4,5}/g);
-        if(nums2){
-          const valid2 = nums2.filter(function(n){ const v=parseFloat(n); return v>6.5&&v<9; });
-          if(valid2.length){ TC=parseFloat(valid2[0]); ok=true; }
+      var r = await fetch(urls[i], {signal: AbortSignal.timeout(8000)});
+      if(r.ok){
+        var html = await r.text();
+        // The TC appears as "7.65213" on the page - find it
+        var m = html.match(/7\.6[0-9]{4}/);
+        if(!m) m = html.match(/7\.5[0-9]{4}/);
+        if(!m) m = html.match(/7\.7[0-9]{4}/);
+        if(!m) m = html.match(/7\.8[0-9]{4}/);
+        if(m){
+          var candidate = parseFloat(m[0]);
+          if(candidate > 7.0 && candidate < 8.5){
+            TC = candidate;
+            ok = true;
+          }
         }
       }
-    }catch(e){}
+    }catch(e){ console.log('TC fetch error:', e.message); }
   }
-  const tcStr = 'Q'+TC.toFixed(4);
-  document.getElementById('tc-val').textContent=tcStr;
-  document.getElementById('menu-tc').textContent=tcStr;
-  document.getElementById('fx-tc-val').textContent=TC.toFixed(4);
-  document.getElementById('fx-tc-ref').value=TC.toFixed(4);
-  document.getElementById('fx-tc-date').textContent='Banguat '+new Date().toLocaleDateString('es-GT')+(ok?' (en vivo)':' (manual)');
+  updateTCDisplay(ok);
   saveSettings();
   renderAll();
 };
- 
+
+function updateTCDisplay(ok){
+  var tcStr = 'Q'+TC.toFixed(4);
+  document.getElementById('tc-val').textContent = tcStr;
+  document.getElementById('menu-tc').textContent = tcStr;
+  var fxVal = document.getElementById('fx-tc-val'); if(fxVal) fxVal.textContent = TC.toFixed(4);
+  var fxRef = document.getElementById('fx-tc-ref'); if(fxRef) fxRef.value = TC.toFixed(4);
+  var fxDate = document.getElementById('fx-tc-date');
+  if(fxDate) fxDate.textContent = 'Banguat '+new Date().toLocaleDateString('es-GT')+(ok?' (en vivo)':' - toca para actualizar manual');
+}
+
 // HELPERS
 function fmt(n,cur){ var s=cur==='USD'?'$':'Q'; return s+Math.abs(parseFloat(n)||0).toFixed(2); }
 function fmtQ(n){ return 'Q'+(Math.round(n)||0).toLocaleString(); }
@@ -751,7 +761,7 @@ function newId(){ return Date.now()+'_'+(Math.random().toString(36).slice(2,6));
 function catName(cat){ return BASE_CATS[cat]||(customCats.find(function(c){ return c.id===cat; })||{name:cat}).name; }
 function showSaved(){ var b=document.getElementById('saved-badge'); b.classList.add('show'); setTimeout(function(){ b.classList.remove('show'); },1800); }
 function showMsg(id,txt,type){ var el=document.getElementById(id); if(!el)return; el.className='msg'+(type==='e'?' e':''); el.textContent=txt; setTimeout(function(){ if(el)el.textContent=''; },2500); }
- 
+
 // MENU
 window.toggleMenu = function(){
   var m=document.getElementById('side-menu');
@@ -774,7 +784,7 @@ window.navTo = function(screen){
   closeMenu();
   renderAll();
 };
- 
+
 // MONTH
 function updateMonth(){
   document.getElementById('month-label').textContent=MONTHS[cm-1]+' '+cy;
@@ -783,7 +793,7 @@ window.changeMonth = async function(dir){
   cm+=dir; if(cm>12){cm=1;cy++;} if(cm<1){cm=12;cy--;}
   updateMonth(); await saveSettings(); renderAll();
 };
- 
+
 // INGRESO TOGGLE STATE
 window.setRegTipo = function(tipo){
   regTipo=tipo;
@@ -875,7 +885,7 @@ window.registrarGasto = async function(){
   showMsg('g-msg','Gasto registrado','');
   renderAll();
 };
- 
+
 // RENDER REGISTRO
 function renderRegistro(){
   var accOpts='<option value="">Sin cuenta</option>'+accounts.map(function(a){ return '<option value="'+a.id+'">'+(a.icon||'??')+' '+a.name+'</option>'; }).join('');
@@ -888,7 +898,7 @@ function renderRegistro(){
     return '<div class="item"><div class="iico" style="background:'+(t.type==='income'?'rgba(29,158,117,0.15)':'rgba(226,75,74,0.1)')+'">'+( t.type==='income'?'+':'-')+'</div><div class="iinfo"><div class="iname">'+t.desc+'</div><div class="isub">'+catName(t.cat)+' - '+(t.currency||'GTQ')+' - '+MS[t.month-1]+' '+t.year+'</div></div><div class="iamt '+(t.type==='income'?'g':'r')+'">'+(t.type==='income'?'+':'-')+fmt(t.amount,t.currency||'GTQ')+'</div></div>';
   }).join('');
 }
- 
+
 // RENDER DASHBOARD
 function renderDashboard(){
   var m=cm,y=cy;
@@ -922,7 +932,7 @@ function renderDashboard(){
   var totalDiezmo=ingTxs.filter(function(t){ return t.afectoDiezmo; }).reduce(function(s,t){ return s+(t.diezmoSugerido||0); },0);
   document.getElementById('d-ingresos-summary').innerHTML='<div class="g2"><div class="mc"><div class="ml">Ingresos netos</div><div class="mv g">'+fmtQ(inc)+'</div></div><div class="mc"><div class="ml">Diezmo acumulado</div><div class="mv p">'+fmtQ(totalDiezmo)+'</div></div></div>';
 }
- 
+
 // RENDER INGRESOS
 function renderIngresos(){
   var txs=getTx(cm,cy).filter(function(t){ return t.type==='income'; }).slice().reverse();
@@ -939,7 +949,7 @@ function renderIngresos(){
     return '<div class="item"><div class="iico" style="background:rgba(29,158,117,0.15)">+</div><div class="iinfo"><div class="iname">'+t.desc+badges+'</div><div class="isub">'+(t.ivaOriginal>0?'Bruto: '+fmt(t.ivaOriginal,t.currency||'GTQ')+' | ':'')+(t.afectoDiezmo?'Diezmo: '+fmt(t.diezmoSugerido||0,t.currency||'GTQ'):'')+'</div></div><div class="iamt g">+'+fmt(t.amount,t.currency||'GTQ')+'</div></div>';
   }).join('');
 }
- 
+
 // RENDER PENDING
 function renderPending(){
   var up=getUnpaid(cm,cy);
@@ -949,7 +959,7 @@ function renderPending(){
     return '<div style="background:rgba(226,75,74,0.05);border:0.5px solid rgba(226,75,74,0.18);border-radius:11px;padding:13px;margin-bottom:9px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><div class="dot-r"></div><div style="font-size:18px">'+(c.icon||'??')+'</div><div style="flex:1;font-size:13px;font-weight:500;color:var(--tx)">'+c.name+'</div><div style="font-size:14px;font-weight:500;color:#f87171">'+fmt(c.amount,c.currency||'GTQ')+'</div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mt)"><span>Dia '+(c.day||1)+' - '+(c.currency||'GTQ')+'</span><button class="paybtn" onclick="payC(\''+c.id+'\')">Pagar ahora</button></div></div>';
   }).join('');
 }
- 
+
 // ACCOUNTS
 function renderAccounts(){
   var ccTargetEl=document.getElementById('cc-target');
@@ -989,7 +999,7 @@ window.delAccount = async function(id){
   accounts=accounts.filter(function(a){ return a.id!==id; });
   await delDoc('accounts',id); renderAll();
 };
- 
+
 // CSV
 window.handleCSV = function(e){
   var file=e.target.files[0]; if(!file)return;
@@ -1024,7 +1034,7 @@ window.importCSV = async function(accId){
   prev.innerHTML='<div class="alert-g">'+txs.length+' transacciones importadas</div>';
   renderAll();
 };
- 
+
 // FX
 window.calcFX = function(){
   var op=document.getElementById('fx-op').value;
@@ -1064,7 +1074,7 @@ function renderFX(){
   if(!ops.length){ el.innerHTML='<div class="empty">Sin operaciones este mes</div>'; return; }
   el.innerHTML=ops.map(function(f){ return '<div class="item"><div class="iico" style="background:rgba(55,138,221,0.1)">FX</div><div class="iinfo"><div class="iname">'+(f.op==='sell'?'Vendi':'Compre')+' $'+f.usd.toFixed(2)+' USD</div><div class="isub">TC dado: Q'+f.tcGiven+' - Banguat: Q'+f.tcRef+' - '+f.date+'</div></div><div style="text-align:right;flex-shrink:0"><div class="iamt r">-Q'+f.loss.toFixed(2)+'</div></div></div>'; }).join('');
 }
- 
+
 // LOANS
 function renderLoans(){
   var el=document.getElementById('loans-list'); if(!el)return;
@@ -1097,7 +1107,7 @@ window.delLoan = async function(id){
   loans=loans.filter(function(l){ return l.id!==id; });
   await delDoc('loans',id); renderAll();
 };
- 
+
 // COMMITS
 function renderCommits(){
   var fl={monthly:'Mensual',weekly:'Semanal',biweekly:'Quincenal',yearly:'Anual'};
@@ -1136,7 +1146,7 @@ window.delC = async function(id){
   commits=commits.filter(function(c){ return c.id!==id; });
   await delDoc('commits',id); renderAll();
 };
- 
+
 // CASHFLOW
 function renderCashflow(){
   var baseInc=getInc(cm,cy)||8000; var baseExp=getExp(cm,cy)||1500;
@@ -1154,7 +1164,7 @@ function renderCashflow(){
   var ctEl=document.getElementById('cf-total'); if(ctEl) ctEl.textContent=Math.abs(t).toLocaleString();
   var csEl=document.getElementById('cf-sub'); if(csEl) csEl.textContent=t>=0?'Proyeccion positiva':'Proyeccion negativa - revisar estructura de gastos';
 }
- 
+
 // CATEGORIAS
 function updateCatSelects(){
   var gCat=document.getElementById('g-cat'); if(!gCat)return;
@@ -1187,7 +1197,7 @@ window.delCategoria = async function(id){
   customCats=customCats.filter(function(c){ return c.id!==id; });
   await delDoc('categories',id); updateCatSelects(); renderAll();
 };
- 
+
 // EXPORT
 function txsToCSV(txs){
   var sep=String.fromCharCode(13,10);
@@ -1231,7 +1241,7 @@ function renderExportSummary(){
   var totalDiezmo=allTx.filter(function(t){ return t.month===cm&&t.year===cy&&t.type==='income'&&t.afectoDiezmo; }).reduce(function(s,t){ return s+(t.diezmoSugerido||0); },0);
   el.innerHTML='<div class="g2"><div class="mc"><div class="ml">Ingresos netos</div><div class="mv g">'+fmtQ(inc)+'</div></div><div class="mc"><div class="ml">Egresos</div><div class="mv r">'+fmtQ(exp)+'</div></div><div class="mc"><div class="ml">Prestamos</div><div class="mv a">'+fmtQ(lp)+'</div></div><div class="mc"><div class="ml">Compromisos</div><div class="mv p">'+fmtQ(cp)+'</div></div><div class="mc"><div class="ml">Diezmo acumulado</div><div class="mv p">'+fmtQ(totalDiezmo)+'</div></div><div class="mc"><div class="ml">Flujo neto</div><div class="mv '+(inc-exp-lp-cp-fxl>=0?'g':'r')+'">'+fmtQ(inc-exp-lp-cp-fxl)+'</div></div></div>';
 }
- 
+
 // CHARTS
 function destroyChart(id){ if(charts[id]){charts[id].destroy();delete charts[id];} }
 function renderCharts(){
@@ -1254,13 +1264,13 @@ function renderCharts(){
   var aVals=accounts.map(function(a){ return a.currency==='USD'?parseFloat((a.balance*TC).toFixed(2)):parseFloat(a.balance.toFixed(2)); });
   destroyChart('ch5'); if(accounts.length){ charts['ch5']=new Chart(document.getElementById('ch5'),{type:'bar',data:{labels:aLabels,datasets:[{label:'Balance GTQ',data:aVals,backgroundColor:aVals.map(function(v){ return v>=0?'rgba(55,138,221,0.6)':'rgba(226,75,74,0.6)'; }),borderRadius:3}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{labels:{color:'#7a94b8',font:{size:9},boxWidth:8}}},scales:{y:{ticks:gx,grid:{color:'rgba(55,138,221,0.05)'}},x:{ticks:Object.assign({},gx,{callback:function(v){return 'Q'+Math.round(v).toLocaleString();}}),grid:{color:'rgba(55,138,221,0.05)'}}}}}); }
 }
- 
+
 function initDates(){
   var today=new Date().toISOString().slice(0,10);
   var ingDate=document.getElementById('ing-date'); if(ingDate)ingDate.value=today;
   var gDate=document.getElementById('g-date'); if(gDate)gDate.value=today;
 }
- 
+
 function renderAll(){
   if(!currentUser)return;
   renderRegistro(); renderDashboard(); renderIngresos(); renderPending();
